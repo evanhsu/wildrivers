@@ -1,0 +1,9 @@
+/admin/requisition_images/*
+/admin/docs/*
+/admin/fax/*
+/photos/*
+/_db_backups/*
+/distribute/*
+/stats/
+*.swp
+Thumbs.db

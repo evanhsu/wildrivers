@@ -1,0 +1,154 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(function() {
+        // Check the initial Position of the Sticky Header
+        var stickyHeaderTop = $('#stickyheader').offset().top;
+ 
+        $(window).scroll(function(){
+                if( $(window).scrollTop() > stickyHeaderTop ) {
+                        $('#stickyheader').css({position: 'fixed', top: '0px'});
+                        $('#stickyalias').css('display', 'block');
+                } else {
+                        $('#stickyheader').css({position: 'static', top: '0px'});
+                        $('#stickyalias').css('display', 'none');
+                }
+        });
+  });
+</script>
+
+<style>
+ul.menubar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    min-width:808px;
+    overflow: hidden;
+}
+
+ul.menubar li {
+    float: left;
+}
+
+.menubar li a:link, .menubar li a:visited {
+    display: block;
+    font-size: 20px;
+    height: 35px;
+    width: 150px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #98bf21;
+    text-align: center;
+    vertical-align: bottom;
+    padding: 15px 0px 0px 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.menubar li a:hover, .menubar li a:active {
+    background-color: #7A991A;
+}
+body {
+    font: 13px sans-serif;
+    margin: 0px;
+}
+#stickyheader {
+    width: 100%;
+    height: 50px;
+    background-color: #98bf21;
+    border-bottom: 2px solid #555555;
+}
+#stickyalias {
+    display: none;
+    height: 50px;
+}
+#unstickyheader {
+    height: 500px;
+    margin-bottom: 0px;
+    background: url('images/menudemo/banner4.jpg') no-repeat #000000;
+}
+#content {
+    margin-top: 0px;
+}
+.continuous-scroll-section {
+    width: 100%;
+    margin: 0px;
+    padding: 50px 5px 50px 5px;
+    border-bottom: 4px dashed #555555;
+    text-align: center;
+}
+.continuous-scroll-section h1 {
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    margin: 0 auto 25px auto;
+}
+.continuous-scroll-section .textblock {
+    width: 500px;
+    color: #dddddd;
+    font-weight: normal;
+    font-size: 14px;
+    font-family: verdana, sans-serif;
+    margin: 0 auto 0 auto;
+    text-align: justify;
+}
+.continuous-scroll-section img {
+    text-align: center;
+    margin: 0 auto 0 auto;
+    width: 900px;
+    height: auto;
+    border: 2px solid #666666;
+}
+
+</style>
+</head>
+<body>
+    <div id="unstickyheader">
+        Image goes here!
+    </div>
+    <div id="stickyheader">
+        <ul class="menubar">
+            <li><a href="#">Staffing</a></li>
+            <li><a href="#">People</a></li>
+            <li><a href="#">Crews</a></li>
+            <li><a href="#">Dandy</a></li>
+            <li><a href="#">Rappel</a></li>
+        </ul>
+    </div>
+    <div id="stickyalias"></div>
+
+    <div id="content">
+        <div class="continuous-scroll-section" style="min-height:150px;background-color:#99cc99;">
+            <h1>Available to Everyone</h1>
+            <div class="textblock">No eAuth. No Active Directory. No Lotus WebID. No NAP account.<br />
+This site is available to every fire crew to help with the administrative record-keeping that they never trained us for.  Whether you have an engine, a handcrew, a helicopter, or an IMT - you're invited to sign up for a private record-keeping space that you can selectively share with only the people you want, whether they have a LincPass or not.</div>
+        </div>
+        <div class="continuous-scroll-section" style="min-height:150px;background-color:#559955;">
+             <h1>Records Management</h1>
+            <div class="textblock">Consolidate your administrative overhead and enable your entire leadership team to access your record-keeping system in the cloud.  You can't trust a spreadsheet once two people each have their own copy, so you're probably keeping a master copy on your own computer, forcing you to do all of the data entry yourself.  Stop doing that.<br />
+By moving to a cloud-based record-keeping system, you'll be able to deligate administrative tasks more efficiently, provide administrative experience to other members of your crew, and ensure that you're always looking at the most up-to-date info.</div>
+<br />
+            <img src="images/menudemo/crew-page.JPG" style="width:700px;height:auto;"/> 
+        </div>
+
+       <div class="continuous-scroll-section" style="min-height:150px;background-color:#99cc99;">
+            <h1>Accessible Anywhere</h1>
+            <div class="textblock">Blah blah blah blah blah blah bla blah blah blah blah blah bla blah blah blah blah blah bla blah blah blah blah blah bla blah blah blah blah blah bla blah blah blah blah blah blahh blah blah blah blah blah blahh blah blah blah blah blah bla blah bla blah blah blah blah blah bla blah bla blah blah blah blah blah bla blah blah</div> 
+        </div>
+        <div class="continuous-scroll-section" style="min-height:150px;background-color:#559955;">
+            <h1>Easy Inventory</h1>
+            <img src="images/menudemo/inventory-page.JPG" /><br />
+            <div class="textblock">The inventory tracker is built into every crew account and allows a stripped-down system for entering what you have, where you got it, and who it's been issued to.</div>
+        </div>
+        <div class="continuous-scroll-section" style="min-height:150px;background-color:#99cc99;">
+            <h1>Simplify Budget</h1>
+            <img src="images/menudemo/budget-page.JPG" /><br />
+            <div class="textblock">The Budget Helper offers a centralized location for all your cardholders to enter their purchases, store receipts and supply orders, and track expenditures from different charge codes.</div>
+        </div>
+    
+    </div><!-- End "content" -->
+</body>
+</html>

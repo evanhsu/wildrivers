@@ -1,0 +1,82 @@
+table {
+border: none;
+}
+
+th {
+background-color: #bbccdd;
+border: 1px solid #999999;
+padding: 3px 5px 5px 2px;
+font-size: 1.0em;
+font-weight: bold;
+}
+
+.evn {
+background-color: #aaaaaa;
+}
+
+.odd {
+background-color: #dddddd;
+}
+
+tr.unusable {
+background-color: #333333;
+color:#eeeeee;
+}
+
+.low_quantity_item {
+background-color: #FFCC33;
+}
+
+td {
+padding: 0px 5px 0px 2px;
+font-size: 1.0em;
+font-weight: normal;
+}
+
+td.new_cat_cell {
+text-align: left;
+vertical-align: bottom;
+font-size:1.2em;
+font-weight: bold;
+height:2em;
+}
+
+td.new_cat_row {
+background-color: #ffffff;
+}
+
+.sort_label {
+margin-top: 2em;
+vertical-align:bottom;
+font-size: 1.2em;
+font-weight: bold;
+}
+
+.menulink {
+font-size: 1.1em;
+font-weight: bold;
+}
+
+#inv_menu {
+border-bottom: 2px solid #dddddd;
+margin: 10px auto 0px auto;
+text-align: center;
+}
+
+table.item_history th {
+background-color: #ccddff;
+padding:1px 3px 1px 3px;
+font-weight: normal;
+}
+
+.check_out {
+font-weight:normal;
+color:#990000;
+}
+
+.check_in {
+font-weight:normal;
+color:#338800;
+}
+
+

@@ -1,0 +1,24 @@
+#potw-image {
+	margin:10px auto 0px auto;
+	padding:0;
+	text-align: center;
+	//border:2px solid #000000;
+}
+
+#potw-explanation {
+	margin:10px auto 5px auto;
+	//width:80%;
+	text-align: justify;
+	font-size: 1em;
+	font-weight: bold;
+	font-family:Verdana, Geneva, sans-serif;
+}
+
+#potw-credits {
+	border-bottom: 1px dashed #555;
+}
+
+#potw-paypal-button {
+	
+	
+}

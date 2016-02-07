@@ -1,0 +1,95 @@
+
+/* ================================================================
+This copyright notice must be untouched at all times.
+
+The original version of this stylesheet and the associated (x)html
+is available at http://www.cssplay.co.uk/menus/basic_dd.html
+Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
+This stylesheet and the assocaited (x)html may be modified in any
+way to fit your requirements.
+=================================================================== */
+/* remove the bullets, padding and margins from the lists */
+.menu {
+margin:0; padding:0;
+}
+
+.menu ul{
+list-style-type:none;
+padding:0;
+margin:0;
+}
+/* make the top level links horizontal and position relative so that we can position the sub level */
+.menu li{
+float:left;
+position:relative;
+z-index:100;
+}
+
+/* use the table to position the dropdown list */
+.menu table{
+position:absolute;
+border-collapse:collapse;
+z-index:80;
+left:-1px;
+top:25px;
+}
+
+/* style all the links */
+.menu a, .menu :visited {
+display:block;
+font-size:11px;
+font-weight:bold;
+width:127px;
+padding:7px 0;
+color:#000;
+background:#949e7c;
+text-decoration:none;
+margin-right:1px;
+text-align:center;
+}
+/* style the links hover */
+.menu :hover{
+color:#444;
+background:#d4d8bd;
+}
+
+/* hide the sub level links */
+.menu ul ul {
+visibility:hidden;
+position:absolute;
+width:127px;
+height:0;
+border-top:1px solid #fff;
+}
+
+.menu ul li ul li a,
+.menu ul li ul li a:visited {
+text-align:left;
+text-indent:5px;
+font-weight: normal;
+}
+
+/* make the sub level visible on hover list or link */
+.menu ul li:hover ul,
+.menu ul a:hover ul{
+visibility:visible;
+}
+
+#banner {
+margin:0; padding:0;
+height:202px;
+/*border-top:2px solid #555;*/
+text-align:left;
+}
+
+#banner img {
+display:block;
+}
+
+#banner_text_bg {
+width:890px; height:26px;
+margin:0; padding:2px 5px;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:18px;
+color:#fff;
+}

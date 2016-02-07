@@ -1,0 +1,24 @@
+Required Software:
+
+Bullzip Access-to-MySQL: 	http://www.bullzip.com/download.php
+		Filename:	msa2mys_3_0_0_108.exe
+
+MySQL ODBC Connector (5.1):	http://dev.mysql.com/downloads/connector/odbc/5.1.html
+		Filename:	mysql-connector-odbc-5.1.5-win32.msi
+
+_______________________________________________________________________________________________
+
+1) Install the MySQL ODBC Connector
+	This must be present before Bullzip will install
+
+2) Install Bullzip MS Access to MySQL
+
+3) Run Bullzip
+
+4) Use the following Bullzip Settings:
+
+	Source Database:	Select the RapRec MDB file (Rappel_log.mdb)
+				Leave the 'Security' fields blank
+	
+	Destination Database:	Create Dump File
+				
