@@ -1,7 +1,7 @@
 <?php
 
 function mw_wotd() {
-	$url = "http://www.merriam-webster.com/word/index.xml";
+	$url = "http://www.merriam-webster.com/wotd/feed/rss2";
 	//$url = "http://localhost/index.xml.xhtml";
 	$curl_handle=curl_init();
 	curl_setopt($curl_handle,CURLOPT_URL,$url);

@@ -148,7 +148,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Grab entire weather forecast
-	$weather_url = "http://www.nws.noaa.gov/view/validProds.php?prod=FWF&node=KMFR";	//Southern Oregon
+	// $weather_url = "http://www.nws.noaa.gov/view/validProds.php?prod=FWF&node=KMFR";	//Southern Oregon
+	$weather_url = "http://forecast.weather.gov/product.php?site=CRH&product=FWF&issuedby=MFR"; // Southern Oregon
 	$curl_handle=curl_init();
 	curl_setopt($curl_handle,CURLOPT_URL,$weather_url);
 	curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,20);

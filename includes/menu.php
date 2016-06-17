@@ -24,7 +24,7 @@
       <li><a href="http://www.siskiyourappellers.com/max_weather.php" title="Weather">Weather</a></li>
       <li><a href="http://spot.nws.noaa.gov/cgi-bin/spot/spotmon?site=mfr">Spot Weather Request</a></li>
       <li><a href="http://gacc.nifc.gov/nwcc/content/products/fwx/guidance/DL.pdf" title="7 Day Significant Fire Potential">7 Day Significant Fire Potential</a></li>
-      <li><a href="http://ormic.org/intel/intelreport.shtml" title="Shared Resources (Local)">Local Resources</a></li>
+      <li><a href="http://www.orrvc.org/intel/intelreport.shtml" title="Shared Resources (Local)">Local Resources</a></li>
       <li><a href="http://gacc.nifc.gov/nwcc/content/products/intelligence/crews.pdf" title="R6 Hotshot Crew Status">R6 Hotshot Crew Status</a></li>
       <li><a href="http://gacc.nifc.gov/nwcc/content/products/intelligence/AviationResources.pdf" title="R6 Aircraft Status">R6 Aircraft Status</a></li>
       <li><a href="http://gacc.nifc.gov/nwcc/content/products/intelligence/MORNINGBRIEF.pdf">NWCC Morning Brief</a></li>

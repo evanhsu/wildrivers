@@ -7,3 +7,6 @@
 /stats/
 *.swp
 Thumbs.db
+*.sublime-project
+*.sublime-workspace
+includes/_notes
