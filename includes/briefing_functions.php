@@ -61,7 +61,13 @@ function get_civil_twilight() {
 	$start = strpos($document_lc,$start_phrase, $offset) + 23;
 	$end = strpos($document_lc,$end_phrase,$start);
 	
-	return substr($document,$start,$end-$start);
+	$output = substr($document,$start,$end-$start);
+
+	// If the civil twilight string is susiciously long, just toss it out and reply "Unknown"
+	if(strlen($output) > 25) {
+		$output = "Unknown";
+	}
+	return $output;
 	
 }
 

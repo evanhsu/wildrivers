@@ -148,15 +148,28 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Grab entire weather forecast
+/*
 	// $weather_url = "http://www.nws.noaa.gov/view/validProds.php?prod=FWF&node=KMFR";	//Southern Oregon
 	$weather_url = "http://forecast.weather.gov/product.php?site=CRH&product=FWF&issuedby=MFR"; // Southern Oregon
+
+	$User_Agent = 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.43 Safari/537.31';
+	// 'GET /product.php?site=CRH&amp;product=FWF&amp;issuedby=MFR HTTP/1.1';
+	// Host: forecast.weather.gov
+
+	$request_headers = array();
+	$request_headers[] = 'User-Agent: '. $User_Agent;
+	$request_headers[] = 'Accept: ';
+
 	$curl_handle=curl_init();
 	curl_setopt($curl_handle,CURLOPT_URL,$weather_url);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
 	curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,20);
 	curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
 	$document = curl_exec($curl_handle);
 	curl_close($curl_handle);
-	
+*/
+$document = shell_exec('curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 136e8d5b-c596-f2bf-9f75-f910894155bf" "http://forecast.weather.gov/product.php?site=CRH&product=FWF&issuedby=MFR"');
+
 ?>
 
 
