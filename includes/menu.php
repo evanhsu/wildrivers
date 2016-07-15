@@ -21,7 +21,7 @@
 	<ul>
       <li><a href="http://staffing.natrap.com" title="Rappel Staffing Report">Staffing Report</a></li>
       <li><a href="http://www.nifc.gov/nicc/sitreprt.pdf" title="SIT Report">SIT Report</a></li>
-      <li><a href="http://www.siskiyourappellers.com/max_weather.php" title="Weather">Weather</a></li>
+      <li><a href="/max_weather.php" title="Weather">Weather</a></li>
       <li><a href="http://spot.nws.noaa.gov/cgi-bin/spot/spotmon?site=mfr">Spot Weather Request</a></li>
       <li><a href="http://gacc.nifc.gov/nwcc/content/products/fwx/guidance/DL.pdf" title="7 Day Significant Fire Potential">7 Day Significant Fire Potential</a></li>
       <li><a href="http://www.orrvc.org/intel/intelreport.shtml" title="Shared Resources (Local)">Local Resources</a></li>
