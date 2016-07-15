@@ -4,7 +4,7 @@
 	require("../includes/auth_functions.php");
 	require_once("../classes/mydb_class.php");
 	
-	if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "inventory") header('location: http://inventory.siskiyourappellers.com');
+	// if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "inventory") header('location: http://inventory.siskiyourappellers.com');
 	$php_self = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 	$php_self_with_query = $php_self . "?" . $_SERVER['QUERY_STRING'];
 	$_SESSION['last_page'] = $_SESSION['this_page'];
@@ -27,7 +27,7 @@
 		if(isset($_GET['year'])) $_SESSION['year'] = $_GET['year'];
 		
 	}//END if($_SESSION['logged_in'] == 1)
-	else header('location: http://www.siskiyourappellers.com/admin/index.php');
+	else header('location: http://192.241.225.249/admin/index.php');
 
 ?>
 
@@ -79,7 +79,7 @@ function redirect(){
 ?>
 <div id="wrapper" style="height:75px; min-height:75px; width:900px;">
 	<div id="banner">
-        <a href="http://inventory.siskiyourappellers.com" style="display:block; width:900px; height:75px; padding:0;"><img src="inventory/inv_banner.jpg" style="border:none" alt="Scroll down..." /></a>
+        <a href="/index.php" style="display:block; width:900px; height:75px; padding:0;"><img src="inventory/inv_banner.jpg" style="border:none" alt="Scroll down..." /></a>
     </div>
 </div>
 <div id="wrapper" style="width:95%;">
@@ -94,8 +94,8 @@ function redirect(){
 				<a href=\"" . $php_self . "?function=get_inv&category=\" class=\"menulink\">Browse Entire Inventory</a> |
 				<a href=\"" . $php_self . "?function=restock_list\" class=\"menulink\">Restock List</a> |
 				<a href=\"" . $php_self . "?function=add_item\" class=\"menulink\">Add New Item</a> |
-				<a href=\"http://www.siskiyourappellers.com/admin/index.php\" class=\"menulink\">Admin Home</a> |
-				<a href=\"http://www.siskiyourappellers.com/admin/index.php?logout=1\" class=\"menulink\">Logout</a>
+				<a href=\"/admin/index.php\" class=\"menulink\">Admin Home</a> |
+				<a href=\"/admin/index.php?logout=1\" class=\"menulink\">Logout</a>
 			</div><br style=\"clear:left;\">\n";
 
 		switch($_GET['function']) {

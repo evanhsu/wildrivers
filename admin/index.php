@@ -91,7 +91,7 @@
 							<a href=\"admin/photo_upload.php\">Upload new photos</a> -- Add new photos to the website<br>\n";
 					echo "<br><b>Document Repository</b><br>\n<a href=\"admin/docs/index.php\">Documents</a> -- Download letterhead, logo artwork, pocket guides, etc.<br>\n";
 					if(check_access("inventory")) echo "<br><b>Inventory</b><br>
-							<a href=\"http://inventory.siskiyourappellers.com/index.php?session_id=".session_id()."\">Inventory Management</a> -- Gear check in / check out<br>";
+							<a href=\"/inventory/index.php?session_id=".session_id()."\">Inventory Management</a> -- Gear check in / check out<br>";
 					if(check_access("edit_incidents")) echo "<br><b>Incident Management</b><br>
 							<a href=\"incidents/index.php\">Helitack Incident Catalog</a> -- View & update p-codes, crewmembers on-scene, fuel models, etc<br>\n";
 							
