@@ -26,7 +26,7 @@
       <li><a href="http://gacc.nifc.gov/nwcc/content/products/fwx/guidance/DL.pdf" title="7 Day Significant Fire Potential">7 Day Significant Fire Potential</a></li>
       <li><a href="http://www.orrvc.org/intel/intelreport.shtml" title="Shared Resources (Local)">Local Resources</a></li>
       <li><a href="http://gacc.nifc.gov/nwcc/content/products/intelligence/crews.pdf" title="R6 Hotshot Crew Status">R6 Hotshot Crew Status</a></li>
-      <li><a href="http://gacc.nifc.gov/nwcc/content/products/intelligence/AviationResources.pdf" title="R6 Aircraft Status">R6 Aircraft Status</a></li>
+      <li><a href="http://gacc.nifc.gov/nwcc/content/products/intelligence/Aviation.pdf" title="R6 Aircraft Status">R6 Aircraft Status</a></li>
       <li><a href="http://gacc.nifc.gov/nwcc/content/products/intelligence/MORNINGBRIEF.pdf">NWCC Morning Brief</a></li>
       <li><a href="http://ftp.nifc.gov/incident_specific_data/">IAP Repository</a></li>
       <li><a href="http://geomac.usgs.gov">GeoMac</a></li>
