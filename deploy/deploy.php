@@ -202,13 +202,13 @@ function authenticateRequest($hookSecret = false) {
 		}
 	};
 
-	if (!isset($_SERVER['HTTP_CONTENT_TYPE'])) {
-		throw new \Exception("Missing HTTP 'Content-Type' header.");
+	if (!isset($_SERVER['CONTENT_TYPE'])) {
+		throw new \Exception("Missing 'Content-Type' header.");
 	} elseif (!isset($_SERVER['HTTP_X_GITHUB_EVENT'])) {
 		throw new \Exception("Missing HTTP 'X-Github-Event' header.");
 	}
 
-	switch ($_SERVER['HTTP_CONTENT_TYPE']) {
+	switch ($_SERVER['CONTENT_TYPE']) {
 		case 'application/json':
 			$json = $rawPost ?: file_get_contents('php://input');
 			break;
@@ -218,7 +218,7 @@ function authenticateRequest($hookSecret = false) {
 			break;
 
 		default:
-			throw new \Exception("Unsupported content type: $_SERVER[HTTP_CONTENT_TYPE]");
+			throw new \Exception("Unsupported content type: $_SERVER[CONTENT_TYPE]");
 	}
 
 	// No authentication issues...
