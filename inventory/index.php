@@ -27,7 +27,7 @@
 		if(isset($_GET['year'])) $_SESSION['year'] = $_GET['year'];
 		
 	}//END if($_SESSION['logged_in'] == 1)
-	else header('location: http://192.241.225.249/admin/index.php');
+	else header('location: /admin/index.php');
 
 ?>
 
