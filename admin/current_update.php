@@ -34,7 +34,9 @@
 	}
 	
 	$query_read_sticky = "SELECT name, unix_timestamp(date) as date, status FROM current_sticky WHERE 1";
-	if(!$result = mydb::cxn()->query($query_read_sticky)) $sticky_text = "Error retrieving sticky post: ".mysql_error();
+	if(!$result = mydb::cxn()->query($query_read_sticky)) {
+		$sticky_text = "Error retrieving sticky post: ".mydb::cxn()->error;
+	}
 	else {
 		$row = $result->fetch_assoc();
 		$sticky_text = str_replace("<br />","",$row['status']);

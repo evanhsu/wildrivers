@@ -4,23 +4,28 @@
 
 //include charts.php to access the SendChartData function
 include_once("includes/charts/charts.php");
-require("scripts/connect.php");
+require("classes/mydb_class.php");
 
-$dbh = connect();
 
 //Determine which 5 years to display on the chart
 $query = "SELECT max(year) as year FROM flighthours";
-$result = mysql_query($query, $dbh) or die("dB query failed (get max year from flighthours): " . mysql_error());
-$row = mysql_fetch_assoc($result);
+$result = mydb::cxn()->query($query);
+if(mydb::cxn()->error != '') {
+	die("dB query failed (get max year from flighthours): " . mydb::cxn()->error . "<br>\n".$query);
+}
+$row = $result->fetch_assoc();
 $first_year = $row['year'] - 4;
 
 //Get data for each month of each year
 for($y=$first_year; $y<=$first_year+4; $y++) {
 	$hours_one_year = array();
 	$query = "SELECT month, year, hours FROM flighthours WHERE id like \"_$y\" or id like \"__$y\" ORDER BY month";
-	$result = mysql_query($query, $dbh) or die("dB query failed ($query): " . mysql_error());
-	
-	while($row = mysql_fetch_assoc($result)) {
+	$result = mydb::cxn()->query($query);
+	if(mydb::cxn()->error != '') {
+		die("dB query failed ($query): " . mydb::cxn()->error . "<br>\n".$query);
+	}
+
+	while($row = $result->fetch_assoc()) {
 		$hours_one_year[$row['month']] = $row['hours']; //Store the flight hours for this month
 	}
 	for($i=6;$i<=10;$i++) {

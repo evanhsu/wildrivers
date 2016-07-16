@@ -244,7 +244,10 @@ function display_incidents($incident_array, $php_self) {
 function view_crewmembers_incidents($incident_array, $crewmember_id, $php_self) {
 
 	//Lookup crewmember's name from the crewmember_id
-	$result = mydb::cxn()->query("SELECT CONCAT(firstname,' ',lastname) as name FROM crewmembers WHERE id LIKE '".$crewmember_id."'",$_SESSION['dbh']) or die("Error retrieving crewmember name: ".mydb::cxn()->error);
+	$result = mydb::cxn()->query("SELECT CONCAT(firstname,' ',lastname) as name FROM crewmembers WHERE id LIKE '".$crewmember_id."'");
+	if(mydb::cxn()->error != '') {
+		die("Error retrieving crewmember name: " . mydb::cxn()->error . "<br>\n".$query);
+	}
 	$crewmember = $result->fetch_assoc();
 
 	if($crewmember_id != -1) {
@@ -256,7 +259,10 @@ function view_crewmembers_incidents($incident_array, $crewmember_id, $php_self) 
 
 	//Create dropdown menu to select year
 	echo "<table><tr><td>";
-	$result = mydb::cxn()->query("SELECT DISTINCT year(date) as year FROM incidents ORDER BY date DESC",$_SESSION['dbh']) or die("Error retrieving dates for year selection menu: " . mydb::cxn()->error);
+	$result = mydb::cxn()->query("SELECT DISTINCT year(date) as year FROM incidents ORDER BY date DESC");
+	if(mydb::cxn()->error != '') {
+		die("Error retrieving dates for year selection menu: " . mydb::cxn()->error . "<br>\n".$query);
+	}
 	echo "<form action=\"".$php_self."\" method=\"GET\">"
 		."<select name=\"year\">\n";
 

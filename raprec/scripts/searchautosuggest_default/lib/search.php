@@ -1,7 +1,5 @@
 <?php 
 include_once("./classes/mydb_class.php");
-	//require('../../../includes/connect.php');
-	//$mysqli = connect();
 
 	$searchq		=	strip_tags($_GET['q']);
 	$getRecord_sql	=	'SELECT distinct * FROM hraps WHERE lastname LIKE "'.$searchq.'%"';

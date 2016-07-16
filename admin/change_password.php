@@ -4,12 +4,8 @@
 	require("../includes/auth_functions.php");
 	require_once("../classes/mydb_class.php");
 	
-	if($_SESSION['logged_in'] == 1) {
-		require("../scripts/connect.php");
-		$dbh = connect();
-	}
-	else {
-		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
+	if(!$_SESSION['logged_in']) {
+		$_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
 		header('location: http://www.siskiyourappellers.com/admin/index.php');
 	}
 //-------------------------------------------------------------------------------------
@@ -69,7 +65,7 @@
 			</form>";
 			
 		if(isset($_POST['old_password']) && isset($_POST['new_password1']) && isset($_POST['new_password2'])) {
-			$result = change_password($_POST['old_password'], $_POST['new_password1'], $_POST['new_password2'], $dbh);
+			$result = change_password($_POST['old_password'], $_POST['new_password1'], $_POST['new_password2']);
 			if($result != 1) echo $result."<br><br>\n".$form;
 			else echo "Password has been changed!<br>\n".$form;
 		}
