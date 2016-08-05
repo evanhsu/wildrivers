@@ -1,6 +1,6 @@
 <?php
 
-require('../classes/mydb_class.php');
+require_once('../classes/mydb_class.php');
 $backup_dir		= '../db_backups';
 
 //===================================================================

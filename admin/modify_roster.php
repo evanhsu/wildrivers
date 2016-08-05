@@ -1,10 +1,10 @@
 <?php
 
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	if(($_SESSION['logged_in'] == 1) && check_access("roster")) {
-		require("../classes/mydb_class.php");
+		require_once("../classes/mydb_class.php");
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
@@ -169,7 +169,7 @@
 					die("Update crewmembers table failed: " . mydb::cxn()->error . "<br>\n".$query);
 				}
 				
-				$query = "select max(id) as id from crewmembers"); //Get the most recent id (the one we just added
+				$query = "select max(id) as id from crewmembers"; //Get the most recent id (the one we just added
 				$result = mydb::cxn()->query($query);
 				if(mydb::cxn()->error != '') {
 					die("Couldn't retrieve new crewmember from the database: " . mydb::cxn()->error . "<br>\n".$query);
@@ -525,7 +525,7 @@
 				$result = mydb::cxn()->query($query);
 				if(mydb::cxn()->error != '') {
 					die("Deleting the ".$_POST['year']." roster failed: " . mydb::cxn()->error . "<br>\n".$query);
-				} else {}
+				} else {
 					echo "The ".$_POST['year']." roster has been successfully removed!<br>\n";
 				}
 			}

@@ -1,5 +1,5 @@
 <?php
-	require("classes/mydb_class.php");
+	require_once("classes/mydb_class.php");
 
 	function is_valid($year) {
 		//Check to see if a given year is present in the database

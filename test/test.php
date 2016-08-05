@@ -1,5 +1,5 @@
 <?php
-require("includes/facebook/src/facebook.php");
+require_once("includes/facebook/src/facebook.php");
 
 update_facebook_wall("This is a test");
 

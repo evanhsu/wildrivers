@@ -1,5 +1,5 @@
 <?php
-	require("classes/mydb_class.php");
+	require_once("classes/mydb_class.php");
 
 	$query = "SELECT status, unix_timestamp(date) as date FROM current_sticky WHERE 1";
 	$sticky_result = mydb::cxn()->query($query);

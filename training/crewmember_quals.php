@@ -10,7 +10,7 @@
 	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 	Zend_Loader::loadClass('Zend_Gdata_Calendar');
 
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	include("../includes/g_calendar_functions.php");
 	
 	//if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "incidents") header('location: http://incidents.siskiyourappellers.com');

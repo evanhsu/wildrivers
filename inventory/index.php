@@ -1,7 +1,7 @@
 <?php
 	if(isset($_GET['session_id'])) session_id($_GET['session_id']);
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	require_once("../classes/mydb_class.php");
 	
 	// if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "inventory") header('location: http://inventory.siskiyourappellers.com');

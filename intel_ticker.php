@@ -1,5 +1,5 @@
 <?php
-	//require("classes/mydb_class.php");
+	//require_once("classes/mydb_class.php");
 	/*
 	$address_list = array();
 	$address_list[] = "http://www.siskiyourappellers.com/max_weather.php";

@@ -4,7 +4,7 @@
   Sample using a PHP array
 ****************************/
 
-require('fpdm.php');
+require_once('fpdm.php');
 
 $fields = array(
 	'name'    => 'Evan',

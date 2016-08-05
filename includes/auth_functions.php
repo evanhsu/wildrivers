@@ -1,6 +1,6 @@
 <?php
 // The caller must have already run 'require_once("/classes/mydb_class.php");' or else these functions will fail.
-// require_once('../classes/mydb_class.php');
+require_once('../classes/mydb_class.php');
 
 function check_access($area) {
 

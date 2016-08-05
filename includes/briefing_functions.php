@@ -23,7 +23,7 @@ function mw_wotd() {
 }
 
 function get_chuck_norris_fact() {
-	//require("scripts/connect.php");
+	//require_once("scripts/connect.php");
 	//$dbh = connect();
 	
 	$query = "SELECT MAX(id) as max, MIN(id) as min from chuck_norris_facts";

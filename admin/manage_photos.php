@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	if(($_SESSION['logged_in'] == 1) && check_access("photos")) {
 		// Allow access
@@ -48,7 +48,7 @@
 		$query = "UPDATE photos SET year = \"".$_POST['year']."\" WHERE id = ".$_POST['id'];
 		$result = mydb::cxn()->query($query);
 		if(mydb::cxn()->error != '') {
-			die("dB year update failed: " . mydb::cxn()->error . "<br>\n".$query));
+			die("dB year update failed: " . mydb::cxn()->error . "<br>\n".$query);
 		}
 		//mydb::cxn()->query("END");
 		mydb::cxn()->query("COMMIT");

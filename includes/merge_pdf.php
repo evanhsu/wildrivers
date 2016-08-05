@@ -10,8 +10,8 @@
   OUTPUT:
   	A PDF file with fields populated.
 ****************************/
-require('../scripts/fpdf/fpdf.php');
-require('../scripts/fpdm/fpdm.php');
+require_once('../scripts/fpdf/fpdf.php');
+require_once('../scripts/fpdm/fpdm.php');
 
 function mergePDF($template,$fields,$outfilename = "src_output.pdf") {
 	

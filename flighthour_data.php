@@ -4,7 +4,7 @@
 
 //include charts.php to access the SendChartData function
 include_once("includes/charts/charts.php");
-require("classes/mydb_class.php");
+require_once("classes/mydb_class.php");
 
 
 //Determine which 5 years to display on the chart
