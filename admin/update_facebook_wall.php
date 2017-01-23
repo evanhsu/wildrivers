@@ -7,7 +7,7 @@
 		require_once("../classes/mydb_class.php");
 	}
 	else {
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 	
 	$query = "SELECT status FROM current ORDER BY date DESC LIMIT 1";
@@ -93,7 +93,7 @@ function update_facebook_wall($text) {
 		}
 	} // END if(!$post_id)
 
-	if($post_id != "") header('location: http://www.siskiyourappellers.com/current.php');
+	if($post_id != "") header('location: http://tools.siskiyourappellers.com/current.php');
 	
 } //END function update_facebook_wall()
 ?>

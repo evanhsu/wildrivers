@@ -4,19 +4,19 @@
 <channel>
 
 <title>SRC - Crew Status</title>
-<link>http://www.siskiyourappellers.com/current.php</link>
+<link>http://tools.siskiyourappellers.com/current.php</link>
 <description>
 	The Crew Status Page provides information on the whereabouts of crewmembers
 	and the various projects that we're currently working on.
 </description>
 
-<atom:link href="http://www.siskiyourappellers.com/rss.php" rel="self" type="application/rss+xml" />
+<atom:link href="http://tools.siskiyourappellers.com/rss.php" rel="self" type="application/rss+xml" />
 <lastBuildDate>Sat, 06 Feb 2016 23:31:10 -0700</lastBuildDate>
 <language>en-us</language>
 
 <title>[Jan 6th] The perm vacancies are now posted on USA...</title>
-<link>http://www.siskiyourappellers.com/current.php</link>
-<guid>http://www.siskiyourappellers.com/current.php?id=1452098129</guid>
+<link>http://tools.siskiyourappellers.com/current.php</link>
+<guid>http://tools.siskiyourappellers.com/current.php?id=1452098129</guid>
 <pubDate>Wed, 06 Jan 2016 09:35:29 -0700</pubDate>
 <description>The perm vacancies are now posted on USAJobs with a closing date of January 15th at midnight. Good luck. 
 
@@ -43,8 +43,8 @@ https://www.usajobs.gov/GetJob/ViewDetails/425728300</description>
  
 
 Permanent GS...</title>
-<link>http://www.siskiyourappellers.com/current.php</link>
-<guid>http://www.siskiyourappellers.com/current.php?id=1451934285</guid>
+<link>http://tools.siskiyourappellers.com/current.php</link>
+<guid>http://tools.siskiyourappellers.com/current.php?id=1451934285</guid>
 <pubDate>Mon, 04 Jan 2016 12:04:45 -0700</pubDate>
 <description>**Hiring Update v2.0** 
 
@@ -65,8 +65,8 @@ If you have an interest in these highly competitive positions, contact the base 
  
 
 Current Vacancies...</title>
-<link>http://www.siskiyourappellers.com/current.php</link>
-<guid>http://www.siskiyourappellers.com/current.php?id=1450465670</guid>
+<link>http://tools.siskiyourappellers.com/current.php</link>
+<guid>http://tools.siskiyourappellers.com/current.php?id=1450465670</guid>
 <pubDate>Fri, 18 Dec 2015 12:07:50 -0700</pubDate>
 <description>**HIRING UPDATE** 
 

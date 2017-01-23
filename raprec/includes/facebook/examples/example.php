@@ -119,7 +119,7 @@ $naitik = $facebook->api('/naitik');
     </div>
     <div>
     	Custom: <a href="https://graph.facebook.com/oauth/authorize?
-    client_id=<?php echo $facebook->getAppId(); ?>&redirect_uri=http://www.siskiyourappellers.com/raprec/includes/facebook/examples/example.php&scope=publish_stream">Login</a>
+    client_id=<?php echo $facebook->getAppId(); ?>&redirect_uri=http://tools.siskiyourappellers.com/raprec/includes/facebook/examples/example.php&scope=publish_stream">Login</a>
     </div>
     <?php endif ?>
 

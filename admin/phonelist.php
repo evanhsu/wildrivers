@@ -8,7 +8,7 @@
 	}
 	else {
 		$_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 	//------
 	// View/Edit privileges determine whether listings show as links, or just as plain text

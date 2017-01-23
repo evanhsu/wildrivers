@@ -42,7 +42,7 @@
 
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: http://www.siskiyourappellers.com/admin/index.php');
+	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
 ?>
 
 
@@ -102,7 +102,7 @@ td.form {
 <SCRIPT language="JavaScript1.2">
 function open_calendar()
 {
-new_window= window.open ("http://www.siskiyourappellers.com/incidents/calendar.php", "Helitack Calendar","location=0,status=0,scrollbars=0,width=810,height=610");
+new_window= window.open ("http://tools.siskiyourappellers.com/incidents/calendar.php", "Helitack Calendar","location=0,status=0,scrollbars=0,width=810,height=610");
 //testwindow.moveTo(0,0);
 }
 </SCRIPT>
@@ -113,7 +113,7 @@ new_window= window.open ("http://www.siskiyourappellers.com/incidents/calendar.p
 <body>
 <div id="wrapper" style="height:75px; min-height:75px; width:900px;">
 	<div id="banner">
-        <a href="http://www.siskiyourappellers.com/incidents" style="display:block; width:900px; height:75px; padding:0;"><img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." /></a>
+        <a href="http://tools.siskiyourappellers.com/incidents" style="display:block; width:900px; height:75px; padding:0;"><img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." /></a>
     </div>
 </div>
 

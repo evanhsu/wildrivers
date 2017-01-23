@@ -8,7 +8,7 @@
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 
 
@@ -28,8 +28,8 @@
 		//update_rss_feed($current_sticky, $current_text, time());
 		update_rss_feed();
 
-		header('location: http://www.siskiyourappellers.com/current.php');
-		//header('location: http://www.siskiyourappellers.com/admin/update_facebook_wall.php');
+		header('location: http://tools.siskiyourappellers.com/current.php');
+		//header('location: http://tools.siskiyourappellers.com/admin/update_facebook_wall.php');
 		exit();
 	}
 	

@@ -77,7 +77,7 @@
   		<div id="linklist">
           <h3>Administrative</h3>
           <ul>
-            <li><a href="http://www.siskiyourappellers.com/raprec"><strong>RapRec Central</strong> - Rappel record-keeping</a></li>
+            <li><a href="http://tools.siskiyourappellers.com/raprec"><strong>RapRec Central</strong> - Rappel record-keeping</a></li>
             <li><a href="https://apps.fs.usda.gov/cfo/ibs/aviation"><strong>ABS</strong> - Aviation Business System</a></li>
             <li><a href="https://access.usbank.com/cpsApp1/index.jsp"><strong>US Bank Government Accounts</strong> - Online banking for your federal purchase card</a></li>
             <li><a href="https://cod.nfc.usda.gov/Documents/docs/boc.pdf"><strong>BOC Codes</strong> - Budget Object Classification Codes. Reconcile your purchases correctly for once!</a></li>
@@ -102,7 +102,7 @@
               <li><a href="http://www.bluemountainrappellers.com"><strong>Blue Mountain Rappel Crew</strong> - La Grande, OR</a></li>
               <li><a href="http://www.centraloregonhelitack.com"><strong>Central Oregon Rappellers</strong> - Prineville, OR</a></li>
               <li><a href="http://www.malheurrappelcrew.com"><strong>Malheur Rappel Crew</strong> - John Day, OR</a></li>
-              <li><a href="http://www.siskiyourappellers.com"><strong>Siskiyou Rappel Crew</strong> - Grants Pass, OR</a></li>
+              <li><a href="http://tools.siskiyourappellers.com"><strong>Siskiyou Rappel Crew</strong> - Grants Pass, OR</a></li>
               <li><a href="http://www.fs.usda.gov/detail/wallowa-whitman/landmanagement/resourcemanagement/?cid=fsbdev7_008938"><strong>Sled Springs Rappel Crew</strong> - Enterprise, OR</a></li>
               <li><a href="http://www.fs.usda.gov/detail/okawen/landmanagement/resourcemanagement/?cid=fsbdev3_053629"><strong>Wenatchee Valley Rappellers</strong> - Wenatchee, WA</a></li>
 		<li><a href="http://www.salmonheli-rappellers.com/"><strong>Salmon Helirappellers</strong> - Salmon, ID</a></li>

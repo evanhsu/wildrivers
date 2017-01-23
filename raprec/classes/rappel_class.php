@@ -398,7 +398,7 @@ class rappel {
 			
 			while($row = $result->fetch_assoc()) {
 				
-				$message = new email('rappel_needs_verification',$row['email'],'http://www.siskiyourappellers.com/raprec/view_rappels.php?op='.$this->operation_id);
+				$message = new email('rappel_needs_verification',$row['email'],'http://tools.siskiyourappellers.com/raprec/view_rappels.php?op='.$this->operation_id);
 				$message->send();
 			}
 		}

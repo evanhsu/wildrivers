@@ -9,7 +9,7 @@
 	}
 	else {
 		// Access Denied.
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 */
 	switch($_GET['function']) {

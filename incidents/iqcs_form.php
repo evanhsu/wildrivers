@@ -8,7 +8,7 @@
 		require_once("../classes/mydb_class.php");
 		require_once("../includes/merge_pdf.php");
 	}
-	else header('location: http://www.siskiyourappellers.com/admin/index.php');
+	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
 
 	$php_self = $_SERVER['PHP_SELF'];
 	
