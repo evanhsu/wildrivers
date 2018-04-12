@@ -1,21 +1,23 @@
 <?php
 
 	session_start();
-	require("../scripts/connect.php");
+	require_once("../classes/mydb_class.php");
 
-	$dbh = connect();
 
 	if(isset($_GET['year'])) $photoyear = $_GET['year'];
 	else $photoyear = date("Y");	//Display photos from the current year if no year is specified
 
 	if($photoyear == 0) {
-		$result = mysql_query("select path, thumbpath, caption, year, id from photos where year NOT BETWEEN 2006 and ".date("Y")." order by id",$dbh)
-						or die("dB query failed: " . mysql_error());
+		$result = mydb::cxn()->query("select path, thumbpath, caption, year, id from photos where year NOT BETWEEN 2006 and ".date("Y")." order by id");
 	}
 	else {
-		$result = mysql_query("select path, thumbpath, caption, year, id from photos where year like '". $photoyear ."' order by id",$dbh)
-						or die("dB query failed: " . mysql_error());
+		$result = mydb::cxn()->query("select path, thumbpath, caption, year, id from photos where year like '". $photoyear ."' order by id");
 	}
+
+	if(mydb::cxn()->error != '') {
+		throw new Exception('There was a problem retrieving photos from the database.<br />\n'.mydb::cxn()->error);
+	}
+
 ?>
 
 
@@ -75,7 +77,7 @@
 				$col_count = 0; //Count number of thumbnails in each row
 				$total_count=0; //Count total number of thumbs on the page
 
-				while($row = mysql_fetch_assoc($result)) {
+				while($row = $result->fetch_assoc()) {
 					if($col_count % 6 == 0) echo "<tr>\n";
 					echo "		<td class=\"thumb\"><a href=\"./enlarge.php?image=".urlencode($row['path'])."&caption=".urlencode(stripslashes($row['caption']))."\"><img src=\"".$row['thumbpath']."\"></a><br>"
 								.stripslashes($row['caption'])."<br></td>\n";

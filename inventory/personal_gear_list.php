@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] != 1)) header('location: index.php');
 
-require('../scripts/fpdf/fpdf.php');
+require_once('../scripts/fpdf/fpdf.php');
 
 class PDF extends FPDF
 {

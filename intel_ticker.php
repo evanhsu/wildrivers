@@ -1,10 +1,10 @@
 <?php
-	//require("classes/mydb_class.php");
+	//require_once("classes/mydb_class.php");
 	/*
 	$address_list = array();
-	$address_list[] = "http://www.siskiyourappellers.com/max_weather.php";
+	$address_list[] = "http://tools.siskiyourappellers.com/max_weather.php";
 	$address_list[] = "http://r6status.centraloregonhelitack.com/summary.php";
-	$address_list[] = "http://www.siskiyourappellers.com/current.php";
+	$address_list[] = "http://tools.siskiyourappellers.com/current.php";
 	$address_list[] = "http://radar.srh.noaa.gov/fire/?lat=42.4390069&lon=-123.3283925&zoom=9";
 	*/
 	
@@ -34,9 +34,9 @@ var i=0;
 var timer_is_on=1;
 var direction_to_rotate = 1; //1 = forward, -1 = backwards
 
-page_list.push("http://www.siskiyourappellers.com/max_weather.php");
+page_list.push("http://tools.siskiyourappellers.com/max_weather.php");
 page_list.push("http://staffing.natrap.com");
-//page_list.push("http://www.siskiyourappellers.com/current.php");
+//page_list.push("http://tools.siskiyourappellers.com/current.php");
 page_list.push("http://ormic.org/intel/intelreport.shtml");
 page_list.push("https://lightning.nifc.gov/");
 nextItem = page_list[0];

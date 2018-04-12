@@ -1,15 +1,14 @@
 <?php
 
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	if(($_SESSION['logged_in'] == 1) && check_access("backup_restore")) {
-		require("../scripts/connect.php");
-		$dbh = connect();
+		require_once("../classes/mydb_class.php");
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 	
 	if(isset($_POST['function'])) {
@@ -19,7 +18,7 @@
 			while($line = fgets($fh)) {
 				$query .= $line;
 			}
-			mysql_query($query,$dbh);
+			mydb::cxn()->query($query);
 		break;
 		
 		case 'restore_from_auto_backup':
@@ -28,7 +27,7 @@
 			while($line = fgets($fh)) {
 				$query .= $line;
 			}
-			mysql_query($query,$dbh);
+			mydb::cxn()->query($query);
 		break;
 		}
 	}

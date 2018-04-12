@@ -7,7 +7,7 @@
 		require_once("../classes/mydb_class.php");
 	}
 	else {
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 	
 	

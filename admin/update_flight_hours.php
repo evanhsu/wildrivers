@@ -1,15 +1,14 @@
 <?php
 
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	if(($_SESSION['logged_in'] == 1) && check_access("flight_hours")) {
-		require("../scripts/connect.php");
-		$dbh = connect();
+		require_once("../classes/mydb_class.php");
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 	 
 	 /********************************************************************************
@@ -33,18 +32,29 @@
 			$id = $_POST['month'] . $_POST['year'];
 			
 			$query = "SELECT hours FROM flighthours WHERE id like \"".$id."\"";
-			$result = mysql_query($query, $dbh) or die("Testing id existence failed: " . mysql_error());
-			$row = mysql_fetch_assoc($result);
+			$result = mydb::cxn()->query($query);
+			if(mydb::cxn()->error != '') {
+				die("Testing id existence failed: " . mydb::cxn()->error . "<br>\n".$query);
+			}
+
+			$row = mydb::cxn()->fetch_assoc($result);
 			if(is_null($row['hours'])) { //This date has no flight hours entered yet - create a new entry
 				$query = "	INSERT INTO flighthours (id,month,year,hours)
 							VALUES ($id,".$_POST['month'].",".$_POST['year'].",".$_POST['hours'].")";
-				$result = mysql_query($query, $dbh) or die("Adding new dB row failed: " . mysql_error());
+				$result = mydb::cxn()->query($query);
+				if(mydb::cxn()->error != '') {
+					die("Adding new dB row failed: " . mydb::cxn()->error . "<br>\n".$query);
+				}
+
 			}
 			else {
 				$query = "	UPDATE flighthours
 							SET month = ".$_POST['month'].", year = ".$_POST['year'].", hours = ".$_POST['hours']."
 							WHERE id like \"".$id."\"";
-				$result = mysql_query($query, $dbh) or die("Update existing hours for specified date failed: " . mysql_error());
+				$result = mydb::cxn()->query($query);
+				if(mydb::cxn()->error != '') {
+					die("Update existing hours for specified date failed: " . mydb::cxn()->error . "<br>\n".$query);
+				}
 			}
 			$err_msg = "<h2>Flight Hours successfully updated!</h2><br>\n";
 		}

@@ -1,6 +1,6 @@
 <?php
 
-require('../raprec/scripts/connect.php');
+require_once('../raprec/scripts/connect.php');
 $backup_dir		= '../raprec/db_backups';
 
 //===================================================================

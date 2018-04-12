@@ -3,5 +3,5 @@
 	// as well as setting the $_SESSION['mobile'] flag
 	session_start();
 	$_SESSION['mobile'] = 1;
-	header('location: http://www.siskiyourappellers.com/admin/index.php');
+	header('location: http://tools.siskiyourappellers.com/admin/index.php');
 ?>

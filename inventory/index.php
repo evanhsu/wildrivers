@@ -1,7 +1,7 @@
 <?php
 	if(isset($_GET['session_id'])) session_id($_GET['session_id']);
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	require_once("../classes/mydb_class.php");
 	
 	// if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "inventory") header('location: http://inventory.siskiyourappellers.com');
@@ -27,7 +27,7 @@
 		if(isset($_GET['year'])) $_SESSION['year'] = $_GET['year'];
 		
 	}//END if($_SESSION['logged_in'] == 1)
-	else header('location: http://192.241.225.249/admin/index.php');
+	else header('location: /admin/index.php');
 
 ?>
 

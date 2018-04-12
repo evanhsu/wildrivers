@@ -35,7 +35,7 @@
           <ul>
             <li><a href="http://staffing.natrap.com"><strong>Rappel Staffing Report</strong> - View & Update the status of national rappel resources</a></li>
             <li><a href="http://www.nifc.gov/nicc/sitreprt.pdf" title="National Situation Report"><strong>SIT Report</strong></a></li>
-            <li><a href="http://www.siskiyourappellers.com/max_weather.php"><strong>Weather</strong> - Consolidated weather forecast for zones: 609, 610, 611, 630, 631</a></li>
+            <li><a href="http://tools.siskiyourappellers.com/max_weather.php"><strong>Weather</strong> - Consolidated weather forecast for zones: 609, 610, 611, 630, 631</a></li>
             <li><a href="http://gacc.nifc.gov/nwcc/content/products/fwx/guidance/DL.pdf"><strong>7 Day Significant Fire Potential</strong></a></li>
             <li><a href="http://orrvc.org/intel/intelreport.shtml" title="Shared Resources (Local)"><strong>Local Resources</strong> - Current staffing on the Rogue River - Siskiyou National Forest</a></li>
       	    <li><a href="http://gacc.nifc.gov/nwcc/content/products/intelligence/crews.pdf" title="R6 Hotshot Crew Status"><strong>R6 Hotshot Crew Status</strong> - Current status of the R6 Hotshots</a></li>

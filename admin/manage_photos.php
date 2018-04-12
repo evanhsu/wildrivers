@@ -1,22 +1,21 @@
 <?php
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	if(($_SESSION['logged_in'] == 1) && check_access("photos")) {
-		require("../scripts/connect.php");
-		$dbh = connect();
+		// Allow access
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 	//------
 	
 	$error = 0; //Initialize error flag
 
 	if(isset($_GET['delete'])) {
-		$result = mysql_query("select id,path,thumbpath from photos where id = ".$_GET['delete'],$dbh); //Referenced with unique file identifier, returns 1 row
-		$row = mysql_fetch_assoc($result);
+		$result = mydb::cxn()->query("select id,path,thumbpath from photos where id = ".$_GET['delete']); //Referenced with unique file identifier, returns 1 row
+		$row = $result->fetch_assoc();
 		
 		$path = "../" . $row['path'];
 		$thumbpath = "../" . $row['thumbpath'];
@@ -34,20 +33,26 @@
 		}
 		
 		//Remove from dB
-		$result = mysql_query("delete from photos where id = " . $_GET['delete'],$dbh);
+		$result = mydb::cxn()->query("delete from photos where id = " . $_GET['delete']);
 			
 	}//end if
 	elseif (isset($_POST['caption'])) {
-		mysql_query("SET AUTOCOMMIT=0;",$dbh);
-		//mysql_query("BEGIN",$dbh); // Begin a compound database query (2 queries)
-		$query = "UPDATE photos SET caption = \"".mysql_real_escape_string($_POST['caption'])."\" WHERE id = ".$_POST['id'];
-		$result = mysql_query($query,$dbh) or die("dB caption update failed: " . mysql_error() . "<br>\n".$query);
+		mydb::cxn()->query("SET AUTOCOMMIT=0;");
+		//mydb::cxn()->query("BEGIN"); // Begin a compound database query (2 queries)
+		$query = "UPDATE photos SET caption = \"".mydb::cxn()->real_escape_string($_POST['caption'])."\" WHERE id = ".$_POST['id'];
+		$result = mydb::cxn()->query($query);
+		if(mydb::cxn()->error != '') {
+			die("dB caption update failed: " . mydb::cxn()->error . "<br>\n".$query);
+		}
 		
 		$query = "UPDATE photos SET year = \"".$_POST['year']."\" WHERE id = ".$_POST['id'];
-		$result = mysql_query($query,$dbh) or die("dB year update failed: " . mysql_error() . "<br>\n".$query);
-		//mysql_query("END",$dbh);
-		mysql_query("COMMIT",$dbh);
-		mysql_query("SET AUTOCOMMIT=1;",$dbh);
+		$result = mydb::cxn()->query($query);
+		if(mydb::cxn()->error != '') {
+			die("dB year update failed: " . mydb::cxn()->error . "<br>\n".$query);
+		}
+		//mydb::cxn()->query("END");
+		mydb::cxn()->query("COMMIT");
+		mydb::cxn()->query("SET AUTOCOMMIT=1;");
 	}
 
 	// Fetch all current photos from database
@@ -55,12 +60,20 @@
 	else $photoyear = date("Y");	//Display photos from the current year if no year is specified
 	
 	if($photoyear == 0) {
-		$result = mysql_query("select path, thumbpath, caption, year, id from photos where year NOT BETWEEN 2006 and ".date("Y")." order by id",$dbh)
-						or die("dB query failed: " . mysql_error());
+
+		$query = "select path, thumbpath, caption, year, id from photos where year NOT BETWEEN 2006 and ".date("Y")." order by id";
+		$result = mydb::cxn()->query($query);
+		if(mydb::cxn()->error != '') {
+			die("dB query failed: " . mydb::cxn()->error . "<br>\n".$query);
+		}
+
 	}
 	else {
-		$result = mysql_query("select path, thumbpath, caption, year, id from photos where year like '". $photoyear ."' order by id",$dbh)
-						or die("dB query failed: " . mysql_error());
+		$query = "select path, thumbpath, caption, year, id from photos where year like '". $photoyear ."' order by id";
+		$result = mydb::cxn()->query($query);
+		if(mydb::cxn()->error != '') {
+			die("dB select failed: " . mydb::cxn()->error . "<br>\n".$query);
+		}
 	}
 ?>
 
@@ -128,7 +141,7 @@
 		?>		
 		<table style="border:none; margin:0 auto 0 auto; width:800px;">
         <?php	
-				while($row = mysql_fetch_assoc($result)) {
+				while($row = $result->fetch_assoc()) {
 					if($col_count % 6 == 0) echo "<tr>\n";
 					$caption = htmlentities($row['caption']);
 					echo "		<td class=\"thumb\">"

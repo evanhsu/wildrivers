@@ -28,13 +28,13 @@ function update_rss_feed() {
 		  ."<channel>\n\n"
 	  
 		  ."<title>SRC - Crew Status</title>\n"
-		  ."<link>http://www.siskiyourappellers.com/current.php</link>\n"
+		  ."<link>http://tools.siskiyourappellers.com/current.php</link>\n"
 		  ."<description>\n"
 		  ."	The Crew Status Page provides information on the whereabouts of crewmembers\n"
 		  ."	and the various projects that we're currently working on.\n"
 		  ."</description>\n\n"
 
-		  ."<atom:link href=\"http://www.siskiyourappellers.com/rss.php\" rel=\"self\" type=\"application/rss+xml\" />\n"
+		  ."<atom:link href=\"http://tools.siskiyourappellers.com/rss.php\" rel=\"self\" type=\"application/rss+xml\" />\n"
 	  
 		  ."<lastBuildDate>" . date("r") . "</lastBuildDate>\n"
 		  ."<language>en-us</language>\n\n";
@@ -47,8 +47,8 @@ function update_rss_feed() {
 		$timestamp_title = date("M jS", $sticky['date']);
 		$rss .="<item>\n"
 			  ."<title>[!] " . $content_title . "</title>\n"
-			  ."<link>http://www.siskiyourappellers.com/current.php</link>\n"
-			  ."<guid>http://www.siskiyourappellers.com/current.php?id=".$sticky['date']."</guid>\n"
+			  ."<link>http://tools.siskiyourappellers.com/current.php</link>\n"
+			  ."<guid>http://tools.siskiyourappellers.com/current.php?id=".$sticky['date']."</guid>\n"
 			  ."<pubDate>" . $timestamp_sticky . "</pubDate>\n"
 			  ."<description>" . $sticky['status'] . "</description>\n"
 			  ."</item>\n\n";
@@ -71,8 +71,8 @@ function update_rss_feed() {
 	  
 	  $rss .="<item>\n"
 			."<title>[" . $timestamp_title . "] " . $content_title . "</title>\n"
-			."<link>http://www.siskiyourappellers.com/current.php</link>\n"
-			."<guid>http://www.siskiyourappellers.com/current.php?id=".$row['date']."</guid>\n"
+			."<link>http://tools.siskiyourappellers.com/current.php</link>\n"
+			."<guid>http://tools.siskiyourappellers.com/current.php?id=".$row['date']."</guid>\n"
 			."<pubDate>" . $timestamp_status . "</pubDate>\n"
 			."<description>" . $status . "</description>\n"
 			."</item>\n\n";

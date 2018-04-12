@@ -10,7 +10,7 @@
 	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 	Zend_Loader::loadClass('Zend_Gdata_Calendar');
 
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	include("../includes/g_calendar_functions.php");
 	
 	//if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "incidents") header('location: http://incidents.siskiyourappellers.com');
@@ -29,7 +29,7 @@
 
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: http://www.siskiyourappellers.com/admin/index.php');
+	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
 ?>
 
 
@@ -56,7 +56,7 @@
 <body>
 <div id="wrapper" style="height:75px; min-height:75px; width:900px;">
 	<div id="banner">
-        <a href="http://www.siskiyourappellers.com/incidents" style="display:block; width:900px; height:75px; padding:0;"><img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." /></a>
+        <a href="http://tools.siskiyourappellers.com/incidents" style="display:block; width:900px; height:75px; padding:0;"><img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." /></a>
     </div>
 </div>
 

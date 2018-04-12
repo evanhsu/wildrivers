@@ -1,12 +1,12 @@
 <?php
 
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 
 	if($_SESSION['logged_in'] == 1) {
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: http://www.siskiyourappellers.com/admin/index.php');
+	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
 ?>
 
 <html>

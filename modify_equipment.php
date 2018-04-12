@@ -35,7 +35,7 @@
 	session_name('raprec');
 	session_start();
 	
-	require("raprec/includes/constants.php");	// Force 'constants.php' to load, even if it has been previously included by one of the classes above.  Must set SESSION vars AFTER the session_start() declaration.
+	require_once("raprec/includes/constants.php");	// Force 'constants.php' to load, even if it has been previously included by one of the classes above.  Must set SESSION vars AFTER the session_start() declaration.
 	require_once("raprec/includes/auth_functions.php");
 	require_once("raprec/includes/check_get_vars.php");
 	require_once("raprec/includes/make_menu.php");

@@ -8,7 +8,7 @@
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 
 
@@ -28,13 +28,15 @@
 		//update_rss_feed($current_sticky, $current_text, time());
 		update_rss_feed();
 
-		header('location: http://www.siskiyourappellers.com/current.php');
-		//header('location: http://www.siskiyourappellers.com/admin/update_facebook_wall.php');
+		header('location: http://tools.siskiyourappellers.com/current.php');
+		//header('location: http://tools.siskiyourappellers.com/admin/update_facebook_wall.php');
 		exit();
 	}
 	
 	$query_read_sticky = "SELECT name, unix_timestamp(date) as date, status FROM current_sticky WHERE 1";
-	if(!$result = mydb::cxn()->query($query_read_sticky)) $sticky_text = "Error retrieving sticky post: ".mysql_error();
+	if(!$result = mydb::cxn()->query($query_read_sticky)) {
+		$sticky_text = "Error retrieving sticky post: ".mydb::cxn()->error;
+	}
 	else {
 		$row = $result->fetch_assoc();
 		$sticky_text = str_replace("<br />","",$row['status']);

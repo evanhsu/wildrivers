@@ -1,7 +1,7 @@
 <?php
 	//if(isset($_GET['session_id'])) session_id($_GET['session_id']);
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	//if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "incidents") header('location: http://incidents.centraloregonhelitack.com');
 	//$php_self = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
@@ -16,7 +16,7 @@
 
 	if($_SESSION['logged_in'] == 1) {
 		include("../includes/inc_functions.php"); //Contains functions: add_line, rm_line, get_incidents
-		require("../scripts/connect.php");
+		require_once("../scripts/connect.php");
 		$dbh = connect();
 		$_SESSION['dbh'] = $dbh;
 		

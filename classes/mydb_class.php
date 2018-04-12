@@ -9,15 +9,15 @@ class mydb {
 			/*********************************************************************/
 			/*************<< Specify the LIVE dB or the DEV dB >>*****************/
 			/*********************************************************************/
-			$mode = 2; // 1 = LIVE,   2 = DEV
+			$mode = 1; // 1 = LIVE,   2 = DEV
 		
 			switch ($mode) {
 			case 1:
 		
-				$host = "siskiyou_general.db.4665018.hostedresource.com";	// LIVE
-				$user = "siskiyou_general";		// LIVE
-				$passwd="Siskiyou09";	// LIVE
-				$database = "siskiyou_general";	// LIVE
+				$host = "localhost";	// LIVE
+				$user = "siskiyourappellers";		// LIVE
+				$passwd="";	// LIVE
+				$database = "siskiyourappellers-tools";	// LIVE
 				$port = 65536;			// LIVE
 				break;
 		
@@ -28,7 +28,9 @@ class mydb {
 				$passwd="Siskiyou09";	// DEV
 				$database = "siskiyou_general";	// DEV
 				break;
+
 			} //end switch
+
 			// Using mysqli (PHP 5)
 			self::$_connection = new mysqli($host,$user,$passwd,$database);
 

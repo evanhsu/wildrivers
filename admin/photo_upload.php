@@ -1,16 +1,15 @@
 <?php
 
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	if(($_SESSION['logged_in'] == 1) && check_access("photos")) {
-		require("../scripts/connect.php");
-		$dbh = connect();
+		require_once("../classes/mydb_class.php");
 		ini_set('memory_limit', '128M');
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 
 	//****************************************************************************************
@@ -172,8 +171,6 @@
 	//****************************************************************************************
 	if(isset($_POST['MAX_FILE_SIZE'])) {
 
-		$dbh = connect();
-		
 		$targets = format_filename(basename( $_FILES['uploadedfile']['name']));
 		$target_path = $targets['base'] . $targets['filename'];
 
@@ -200,9 +197,11 @@
 			}
 			else {
 				// Photo successfully uploaded, now add an entry in the database
-				$result = mysql_query("insert into photos(path,thumbpath,caption,year,height,width)
-										values(\"photos/".$targets['filename']."\",\"photos/thumbs/".$targets['filename']."\",\"".mysql_real_escape_string($_POST['caption'])."\",".$_POST['year'].",".$size['height'].",".$size['width'].")",$dbh)
-					or die("Login failed: " . mysql_error());
+				$result = mydb::cxn()->query("insert into photos(path,thumbpath,caption,year,height,width)
+										values(\"photos/".$targets['filename']."\",\"photos/thumbs/".$targets['filename']."\",\"".mydb::cxn()->real_escape_string($_POST['caption'])."\",".$_POST['year'].",".$size['height'].",".$size['width'].")");
+				if(mydb::cxn()->error != '') {
+					die("Login failed: " . mydb::cxn()->error . "<br>\n".$query);
+				}
 			}
 
 		}// end 'if($status['success'])'

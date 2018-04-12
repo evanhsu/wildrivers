@@ -32,7 +32,7 @@
 
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: http://www.siskiyourappellers.com/admin/index.php');
+	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
 ?>
 
 
@@ -59,7 +59,7 @@
 <body>
 <div id="wrapper" style="height:170px; min-height:170px; width:900px;">
 	<div id="banner">
-        <a href="http://www.siskiyourappellers.com/training" style="display:block; width:900px; height:75px; padding:0;"><img src="images/banner_index2.jpg" style="border:none" alt="Scroll down..." /></a>
+        <a href="http://tools.siskiyourappellers.com/training" style="display:block; width:900px; height:75px; padding:0;"><img src="images/banner_index2.jpg" style="border:none" alt="Scroll down..." /></a>
     </div>
 </div>
 

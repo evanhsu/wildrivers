@@ -1,6 +1,6 @@
 <?php
 
-require('../scripts/connect.php');
+require_once('../classes/mydb_class.php');
 $backup_dir		= '../db_backups';
 
 //===================================================================
@@ -29,17 +29,18 @@ $file_date	= date('Y-m-d');			//Date string to be appended onto the filename
 $todays_folder = $backup_dir."/".$day_text;
 
 //===================================================================
-//Connect to database
-$dbh = connect();
-
 //Check for existing directory structure
 if(!is_dir($backup_dir)) mkdir($backup_dir);
 if(!is_dir($todays_folder)) mkdir($todays_folder);
 //===================================================================
 
 //Get a list of databases on this database server & start a loop over databases
-$db_list_result = mysql_list_dbs($dbh);
-while ($db_list_row = mysql_fetch_object($db_list_result)) {
+$query = "show databases;";
+$db_list_result = mydb::cxn()->query($query);
+if(mydb::cxn()->error != '') {
+	die("Couldn't retrieve a list of databases from the db server: " . mydb::cxn()->error . "<br>\n".$query);
+}
+while ($db_list_row = $db_list_result->fetch_object()) {
 	$db = $db_list_row->Database;
 	if($db == 'information_schema') continue; //Don't backup the schema
 	
@@ -50,15 +51,15 @@ while ($db_list_row = mysql_fetch_object($db_list_result)) {
 				."-- --------------------------------------------------------\n\n";
 				
 	//Start a loop over tables
-	$table_result = mysql_query("show full tables in ".$db." WHERE table_type != 'VIEW'",$dbh); // 2 columns: [name, table_type]
-	while($table_row = mysql_fetch_row($table_result)) {
+	$table_result = mydb::cxn()->query("show full tables in ".$db." WHERE table_type != 'VIEW'"); // 2 columns: [name, table_type]
+	while($table_row = $table_result->fetch_row()) {
 		$table = $table_row[0]; // There should only be 1 table in each table_row
 		if(in_array($table,$ignored_tables)) continue;
 		
 		//Get a 2D array of table info: ('Field', 'Type', 'Null', 'Key', 'Default', 'Extra') for each column
 		$columns = array();
-		$col_result = mysql_query("show columns in ".$table,$dbh);
-		while($col_row = mysql_fetch_assoc($col_result)) {
+		$col_result = mydb::cxn()->query("show columns in ".$table);
+		while($col_row = $col_result->fetch_assoc()) {
 			$columns[] = $col_row;
 		}
 		
@@ -100,10 +101,10 @@ while ($db_list_row = mysql_fetch_object($db_list_result)) {
 					.	"INSERT INTO `".$table."` VALUES\n";
 		
 		//SELECT all table data
-		$data_result = mysql_query("SELECT * FROM ".$table,$dbh);
+		$data_result = mydb::cxn()->query("SELECT * FROM ".$table);
 		$data_row_num = 0;
-		$last_data_row_num = mysql_num_rows($data_result);
-		while($data_row = mysql_fetch_row($data_result)) {
+		$last_data_row_num = $data_result->num_rows;
+		while($data_row = $data_result->fetch_row()) {
 			$data_row_num++;
 			
 			$value_num = 0;
@@ -112,7 +113,7 @@ while ($db_list_row = mysql_fetch_object($db_list_result)) {
 			foreach($data_row as $key=>$value) {
 				$value_num++;
 				if(in_array($value_num,$cols_to_use_null_instead_of_empty) && ($value == '')) $backup_text .= "NULL";
-				else $backup_text .= "'".mysql_real_escape_string($value)."'";
+				else $backup_text .= "'".mydb::cxn()->real_escape_string($value)."'";
 				if($value_num < $last_value_num) $backup_text .= ", ";
 			}
 			if($data_row_num < $last_data_row_num) $backup_text .= "),\n";

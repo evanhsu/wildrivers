@@ -1,13 +1,13 @@
 <?php
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	if(($_SESSION['logged_in'] == 1) && check_access("manage_apparel")) {
 		require_once("../classes/mydb_class.php");
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 	//-----------------------------------------------------------------------------
 	if(preg_match('/^(20)\d{2}$/',$_GET['year']) == 1) $year = $_GET['year']; //Check for 4-digit number between 2000 - 2099

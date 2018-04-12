@@ -1,28 +1,27 @@
 <?php
 	if(isset($_GET['session_id'])) session_id($_GET['session_id']);
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
-	if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "inventory") header('location: http://inventory.siskiyourappellers.com');
+	// if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "inventory") header('location: http://inventory.siskiyourappellers.com');
 	$php_self = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 
 	if(($_SESSION['logged_in'] == 1) && check_access("inventory")) {
 		include("../includes/inv_functions.php"); //Contains functions: add_item, rm_item, get_inv
-		require("../scripts/connect.php");
-		$dbh = connect();
+		require_once("../classes/mydb_class.php");
 		
 		if(isset($_GET['sort_by'])) $_SESSION['sort_view_by'] = $_GET['sort_by'];
 		elseif (!isset($_SESSION['sort_view_by'])) $_SESSION['sort_view_by'] = "item_type";
 		
 	}//END if($_SESSION['logged_in'] == 1)
-	else header('location: http://www.siskiyourappellers.com/admin/index.php');
+	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
 
 ?>
 <?php
 session_start();
 if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] != 1)) header('location: index.php');
 
-require('../scripts/fpdf/fpdf.php');
+require_once('../scripts/fpdf/fpdf.php');
 
 class PDF extends FPDF
 {

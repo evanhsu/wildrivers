@@ -39,7 +39,7 @@
 			if(SHA1("c=people&a=rappels&id=14&year=2012&timestamp=48392058&api_user=my_username".SHA1(my_username.USER_PASSWORD)) == F93h90j37g6YghI29487736H83fF) allow_access = true;
 	*/
 
-	require("classes/mydb_class.php");
+	require_once("classes/mydb_class.php");
 	
 	try {
 	  //Break apart the request string

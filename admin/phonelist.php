@@ -1,15 +1,14 @@
 <?php
 
 	session_start();
-	require("../includes/auth_functions.php");
+	require_once("../includes/auth_functions.php");
 	
 	if($_SESSION['logged_in'] == 1) {
-		require("../scripts/connect.php");
-		$dbh = connect();
+		require_once("../classes/mydb_class.php");
 	}
 	else {
-		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		$_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 	//------
 	// View/Edit privileges determine whether listings show as links, or just as plain text
@@ -30,14 +29,14 @@
 		 else $id = -1; //Set default id if no id is specified
 	
 		 // Make updates if necessary
-		 if(isset($_POST['id'])) update_info($dbh);
+		 if(isset($_POST['id'])) update_info();
 	}
 
 
 	 //**************************************************************************
 	 //**************************************************************************
 
-	 function show_phonelist($year, $dbh) {
+	 function show_phonelist($year) {
 		global $allow_edit;
 		$query = "SELECT	crewmembers.id,
 		 					crewmembers.lastname,
@@ -55,13 +54,16 @@
 				WHERE 		roster.year like \"".$year."\"
 				ORDER BY	crewmembers.lastname, crewmembers.firstname";
 
-		$result = mysql_query($query, $dbh) or die("dB query failed: " . mysql_error());
+		$result = mydb::cxn()->query($query);
+		if(mydb::cxn()->error != '') {
+			die("dB query failed: " . mydb::cxn()->error . "<br>\n".$query);
+		}
 
 		print "<table class=\"phone_table\" style=\"border:2px solid #ddd; margin:0 auto 0 auto;\">\n";
 		
 		switch($allow_edit) {
 		case 1:
-			while($row = mysql_fetch_assoc($result)) {
+			while($row = $result->fetch_assoc()) {
 				print	"<tr><td><a href=\"".$_SERVER['PHP_SELF']."?cmd=update_info&id=".$row['id']."\">".$row['lastname'].", ".$row['firstname']."</a></td>"
 						."<td>".$row['phone']."</td>"
 						."<td>".$row['email']."</td>"
@@ -74,7 +76,7 @@
 		case 0:
 		default:
 			if($_SESSION['mobile'] == 1) {
-				while($row = mysql_fetch_assoc($result)) {
+				while($row = $result->fetch_assoc()) {
 					print	"<tr><td style=\"text-align:left;\"><span style=\"font-weight:bold; color:#eeeeee; background-color:#333333; padding:2px 5px 2px 2px;line-height:1.5em;\">".$row['lastname'].", ".$row['firstname']."</span><br>\n";
 					if($row['phone'] != '') print $row['phone']."<br>\n";
 					if($row['email'] != '') print $row['email']."<br>\n";
@@ -87,7 +89,7 @@
 				}
 			}
 			else {
-				while($row = mysql_fetch_assoc($result)) {
+				while($row = $result->fetch_assoc()) {
 					print	"<tr><td>".$row['lastname'].", ".$row['firstname']."</td>"
 							."<td>".$row['phone']."</td>"
 							."<td>".$row['email']."</td>"
@@ -104,7 +106,7 @@
 
 //-----------------------------------------------------------------------------------------------------------------
 
-	function show_update_form($id,$dbh) {
+	function show_update_form($id) {
 		$query = "SELECT	crewmembers.id,
 							crewmembers.lastname,
 							crewmembers.firstname,
@@ -117,8 +119,11 @@
 							crewmembers.zip
 				FROM		crewmembers
 				WHERE		crewmembers.id like '".$id."'";
-		$result = mysql_query($query, $dbh) or die("dB query failed: " . mysql_error());
-		$row = mysql_fetch_assoc($result);
+		$result = mydb::cxn()->query($query);
+		if(mydb::cxn()->error != '') {
+			die("dB query failed: " . mydb::cxn()->error . "<br>\n".$query);
+		}
+		$row = $result->fetch_assoc();
 
 		print	"<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
 				."<table class=\"phone_table\">\n<tr><td>Name</td><td>"
@@ -138,17 +143,20 @@
 
 //-----------------------------------------------------------------------------------------------------------------
 
-	function update_info($dbh) {
-		$query = "update crewmembers set street1 = \"".mysql_real_escape_string($_POST['street1'])."\", "
-				."street2 = \"".mysql_real_escape_string($_POST['street2'])."\", "
-				."city = \"".mysql_real_escape_string($_POST['city'])."\", "
-				."state = \"".mysql_real_escape_string($_POST['state'])."\", "
-				."zip = \"".mysql_real_escape_string($_POST['zip'])."\", "
-				."phone = \"".mysql_real_escape_string($_POST['phone'])."\", "
-				."email = \"".mysql_real_escape_string($_POST['email'])."\""
+	function update_info() {
+		$query = "update crewmembers set street1 = \"".mydb::cxn()->real_escape_string($_POST['street1'])."\", "
+				."street2 = \"".mydb::cxn()->real_escape_string($_POST['street2'])."\", "
+				."city = \"".mydb::cxn()->real_escape_string($_POST['city'])."\", "
+				."state = \"".mydb::cxn()->real_escape_string($_POST['state'])."\", "
+				."zip = \"".mydb::cxn()->real_escape_string($_POST['zip'])."\", "
+				."phone = \"".mydb::cxn()->real_escape_string($_POST['phone'])."\", "
+				."email = \"".mydb::cxn()->real_escape_string($_POST['email'])."\""
 				." where id like \"".$_POST['id']."\"";
 				
-		$result = mysql_query($query, $dbh) or die("dB query failed (update contact info): " . mysql_error());
+		$result = mydb::cxn()->query($query);
+		if(mydb::cxn()->error != '') {
+			die("dB query failed (update contact info): " . mydb::cxn()->error . "<br>\n".$query);
+		}
 
 	}//end 'update_info'
 
@@ -156,12 +164,15 @@
 
 //-----------------------------------------------------------------------------------------------------------------
 
-	function make_year_dropdown($dbh) {
+	function make_year_dropdown() {
 		$query = "SELECT DISTINCT year FROM roster WHERE 1 ORDER BY year DESC";
-		$result = mysql_query($query, $dbh) or die("dB query failed (year dropdown menu): " . mysql_error());
+		$result = mydb::cxn()->query($query);
+		if(mydb::cxn()->error != '') {
+			die("dB query failed (year dropdown menu): " . mydb::cxn()->error . "<br>\n".$query);
+		}
 
 		print	"<form action=\"".$_SERVER['PHP_SELF']."\" method=\"GET\">\n<select name=\"year\">\n";
-		while($row = mysql_fetch_assoc($result)) {
+		while($row = $result->fetch_assoc()) {
 			print "<option value=\"".$row['year']."\"";
 			if($_GET['year'] == $row['year']) print " selected=\"selected\"";
 			print ">".$row['year']."</option>\n";
@@ -234,16 +245,16 @@
 
 	<?php
 
-		make_year_dropdown($dbh);
+		make_year_dropdown();
 		echo "| <a href=\"admin/index.php\">Admin Home</a> |<br><br>\n\n";
 		
 		switch ($cmd) {
 		case "update_info":
-			show_update_form($id,$dbh);
+			show_update_form($id);
 			break;
 		case "show_phonelist":
 		default:
-			show_phonelist($year,$dbh);
+			show_phonelist($year);
 			break;
 		}// end 'switch'
 	?>

@@ -9,5 +9,7 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 includes/_notes
-
 *.tar.gz
+.vagrant
+.DS_Store
+*.sql

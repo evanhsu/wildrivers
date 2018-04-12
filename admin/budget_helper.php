@@ -33,7 +33,7 @@
 	else {
 		// Access Denied.
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://www.siskiyourappellers.com/admin/index.php');
+		header('location: http://tools.siskiyourappellers.com/admin/index.php');
 	}
 
 	$_SESSION['split_qty'] = 10;

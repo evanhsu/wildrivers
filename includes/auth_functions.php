@@ -1,6 +1,6 @@
 <?php
 // The caller must have already run 'require_once("/classes/mydb_class.php");' or else these functions will fail.
-// require_once('../classes/mydb_class.php');
+require_once('../classes/mydb_class.php');
 
 function check_access($area) {
 
@@ -22,7 +22,7 @@ function check_access($area) {
 		if($area == $allowed) $access_granted = 1;
 	}
 	
-	//Allow access for username 'coh' ONLY if logged in through the mobile portal (www.siskiyourappellers.com/m)
+	//Allow access for username 'coh' ONLY if logged in through the mobile portal (tools.siskiyourappellers.com/m)
 	//if(($_SESSION['mobile'] != 1) && ($_SESSION['username'] == 'coh')) $access_granted = 0;
 	
 	return $access_granted;
