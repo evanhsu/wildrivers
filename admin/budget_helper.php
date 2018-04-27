@@ -40,7 +40,7 @@
 	$err_msg = "";
 	$content = "";
 
-	$_SESSION['cardholders'] = array('dan', 'tim', 'larrimore', 'jonah', 'nick', 'other', 'wishlist');
+	$_SESSION['cardholders'] = array('Brett', 'Barbra', 'Colin', 'Mike', 'other', 'wishlist');
 
 	if(isset($_GET['sort_by'])) $_SESSION['sort_req_view_by'] = $_GET['sort_by'];
 	elseif (!isset($_SESSION['sort_req_view_by'])) $_SESSION['sort_req_view_by'] = "date";
@@ -505,6 +505,7 @@ function get_wishlist_requisitions() {
 
 	if(mydb::cxn()->error != '') throw new Exception('There was a problem retrieving the requisition list from the database.<br />\n'.mydb::cxn()->error);
 
+	$requisition_array = array();
 	while($row = $result->fetch_assoc()) {
 		$requisition_array[] = $row;
 	}
@@ -522,6 +523,7 @@ function get_requisitions() {
 	$filter = "";
 	$inverse_filter = "";
 	$include_others = "";
+	$requisition_array = array();
 	$cards_to_omit = array_diff($_SESSION['cardholders'], array('other'));
 	
 	foreach($_SESSION['filter_cards_to_include'] as $card_to_include) {
@@ -732,7 +734,11 @@ function display_requisitions($requisition_array) {
 	$content .= "<form action=\"".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."\" method=\"GET\">"
 			   ."<select name=\"year\">\n";
 	$row = $result->fetch_assoc();
-	$earliest_fiscal_year = to_fiscal_year($row['datef']);
+	if(empty($row)) {
+		$earliest_fiscal_year = to_fiscal_year(date('m/d/Y'));
+	} else {
+		$earliest_fiscal_year = to_fiscal_year($row['datef']);
+	}
 	$current_fiscal_year = to_fiscal_year(date('m/d/Y'));
 
 	for($fiscal_year = $current_fiscal_year; $fiscal_year >= $earliest_fiscal_year; $fiscal_year--) {
