@@ -111,10 +111,13 @@ new_window= window.open ("https://wildrivers.firecrew.us/incidents/calendar.php"
 
 
 <body>
-<div id="wrapper" style="height:75px; min-height:75px; width:900px;">
-	<div id="banner">
-        <a href="https://wildrivers.firecrew.us/incidents" style="display:block; width:900px; height:75px; padding:0;"><img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." /></a>
-    </div>
+<div id="wrapper" style="height:75px; min-height:75px; width:640px; position: relative;">
+	<div id="banner" style="height: 75px">
+		<span style="position: absolute; width: 100%; text-align: center; bottom: 0px; font-size: 60px; color: white;">Incident Catalog</span>
+		<a href="https://wildrivers.firecrew.us/incidents" style="display:block; padding:0;">
+			<img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." />
+		</a>
+	</div>
 </div>
 
 <div id="wrapper" style="width:95%;">
@@ -131,7 +134,7 @@ new_window= window.open ("https://wildrivers.firecrew.us/incidents/calendar.php"
 				<a href=\"" . $php_self . "?function=add_line\" class=\"menulink\">Add New Incident</a> |";
 				
 		//echo "	<a href=\"" . $php_self . "\" class=\"menulink\" onClick=\"open_calendar()\">View Calendar</a> |";
-		echo "<a href=\"admin/index.php\" class=\"menulink\">Admin Home</a> |
+		echo " <a href=\"admin/index.php\" class=\"menulink\">Admin Home</a> |
 				<a href=\"admin/index.php?logout=1\" class=\"menulink\">Logout</a>
 			</div><br style=\"clear:left;\">\n";
 		
