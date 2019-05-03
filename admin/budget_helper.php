@@ -40,7 +40,7 @@
 	$err_msg = "";
 	$content = "";
 
-	$_SESSION['cardholders'] = array('dan', 'tim', 'larrimore', 'jonah', 'nick', 'other', 'wishlist');
+	$_SESSION['cardholders'] = array('dan', 'tim', 'larrimore', 'schutty', 'ormond', 'wfpr', 'other', 'wishlist');
 
 	if(isset($_GET['sort_by'])) $_SESSION['sort_req_view_by'] = $_GET['sort_by'];
 	elseif (!isset($_SESSION['sort_req_view_by'])) $_SESSION['sort_req_view_by'] = "date";
@@ -127,30 +127,15 @@
 		order_total_field = document.forms[form_name].elements['order_total'];
 		amount_1_field = document.forms[form_name].elements['amount_1'];
 		
-		//if(amount_1_field.value == "") {
-			// If the first line item has not yet been populated with a dollar amount, copy the order total into that field.
-			// THIS WILL OVERWRITE EXISTING VALUES IN THE 'TOTAL' FIELD FOR THE 1ST LINE ITEM
-			amount_1_field.value = order_total_field.value;
-		//}
-			
-/*	
-		for(id=1;id<=10;id++) {
-			//percent_field = document.forms[form_name].elements['percent_'+id];
-			amount_field = document.forms[form_name].elements['amount_'+id];
+        amount_1_field.value = order_total_field.value;
 
-			if(percent_field.value != '') {
-				amount_field.value = Math.round(req_form.order_total.value * percent_field.value * 100) / 10000;
-			}
-			else amount_field.value = '';
-		}
-*/
 		check_total_math();
 	}
 
 	function update_percent(id) {
 		//THIS FUNCTION IS NO LONGER USED - the 'percent' field has been removed
 		//Update the 'percent' field when the 'amount' field is changed
-		var form_name = 'req_form'
+		var form_name = 'req_form';
 		
 		var percent_field = document.forms[form_name].elements['percent_'+id];
 		var amount_field = document.forms[form_name].elements['amount_'+id];
@@ -590,7 +575,7 @@ function get_requisitions() {
 			break;
 		case "date":
 		default:
-			$order_by = " ORDER BY date, id, charge_code";
+			$order_by = " ORDER BY date DESC, id, charge_code";
 			$_SESSION['sort_req_view_by'] = "date";
 			break;
 	}
