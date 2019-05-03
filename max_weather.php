@@ -168,7 +168,7 @@
 	$document = curl_exec($curl_handle);
 	curl_close($curl_handle);
 */
-$document = shell_exec('curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 136e8d5b-c596-f2bf-9f75-f910894155bf" "http://forecast.weather.gov/product.php?site=CRH&product=FWF&issuedby=MFR"');
+$document = shell_exec('curl "http://forecast.weather.gov/product.php?site=CRH&issuedby=MFR&product=FWF&format=txt&version=1&glossary=0"');
 
 ?>
 

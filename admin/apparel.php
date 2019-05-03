@@ -11,6 +11,7 @@
 	}
 	//-----------------------------------------------------------------------------
 	$mail_recipient = "apparel@siskiyourappellers.com";
+	//$mail_recipient = "evanhsu@gmail.com";
 	
 	$exclude_from_free_column_1 = array("Flex Fit Crew Hat", "Mesh-Back Trucker Hat", "Black Screen-Printed Crew Hoody", "Black Embroidered Crew Hoody", "Black Embroidered Beanie (short)", "Black Embroidered Beanie (cuffed)");
 	$exclude_from_free_column_2 = array("Flex Fit Crew Hat", "Mesh-Back Trucker Hat", "Black Embroidered Beanie (short)", "Black Embroidered Beanie (cuffed)");
@@ -63,8 +64,8 @@
 			$free_or_not = "";
 			if($row_count++ % 2 == 0) $row_style = $td_style;
 			else $row_style = $td_alt_style;
-			if($_POST['free_item_1'] == $row['id']) $free_or_not .= "X";
-			if($_POST['free_item_2'] == $row['id']) $free_or_not .= "X";
+			if(isset($_POST['free_item_1']) && ($_POST['free_item_1'] == $row['id'])) $free_or_not .= "X";
+			if(isset($_POST['free_item_2']) && ($_POST['free_item_2'] == $row['id'])) $free_or_not .= "X";
 			$msg .= "<tr>"
 					."<td style=\"".$row_style."text-align:left;\">".$row['name']."</td>"
 					."<td style=\"".$row_style."text-align:left;\">".$row['type']."</td>"
@@ -97,7 +98,6 @@
 			$alert = "<div style=\"color:#33dd33; font-weight:bold; font-size:2em;\">Your order has been submitted!</div>";
 		}
 		else $alert = "<div style=\"color:#dd3333; font-weight:bold;\">There was a problem sending your order.</div>";
-
 	}
 
 	function mail_order($to,$msg,$order_number) {
@@ -278,10 +278,10 @@ input {
         <div style="width:700px; margin:0 auto 10px auto; text-align:justify;">
         	<div style="width:330px; margin:0 5px 0 auto; padding:5px; display:inline-block; background-color:#aaaaaa; border: 1px solid #555555;">
                 <span style="font-size:1.5em;font-weight:bold;">You MUST have:</span><br />
-                1 Orange Screen-Printed PT Shirt and<br />
-                1 Black Crew Hoody (Screen-Printed or Embroidered)<br />
+                1 Orange PT Shirt and<br />
+                1 Black Crew Shirt<br />
                 <br />
-                Additional apparel is recommended but not required, although you will be expected to maintain a clean and professional appearance.
+                Additional apparel is recommended but not required, although you will be expected to wear a crew shirt daily following rookie training and maintain a clean and professional appearance.
             </div>
             <div style="width:330px; margin:0 auto 0 5px; padding:5px; display:inline-block; background-color:#aaaaaa; border: 1px solid #555555;">
                 <span style="font-size:1.5em;font-weight:bold;">Two of your items will be free.</span><br />
@@ -289,7 +289,7 @@ input {
                 Not all items are eligible for free credit.<br />
                 <br />
                 <span style="font-size:1.5em;font-weight:bold;">Bring payment</span> with you on your first day.<br />
-                Cash, check and PayPal will be accepted.  Make checks payable to: <strong>Evan Hsu</strong>
+                Cash, check and PayPal will be accepted.  Make checks payable to: <strong>Andrew Larrimore</strong>
                 <br /><br />
                 <span style="font-size:1.5em;font-weight:bold;">If you want to change your order later</span>, just submit a completely new order and it will replace your previous order.
             </div>
