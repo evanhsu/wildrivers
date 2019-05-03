@@ -575,7 +575,7 @@ function get_requisitions() {
 			break;
 		case "date":
 		default:
-			$order_by = " ORDER BY date, id, charge_code";
+			$order_by = " ORDER BY date DESC, id, charge_code";
 			$_SESSION['sort_req_view_by'] = "date";
 			break;
 	}
