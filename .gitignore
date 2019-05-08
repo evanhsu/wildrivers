@@ -13,3 +13,4 @@ includes/_notes
 .vagrant
 .DS_Store
 *.sql
+.idea/
