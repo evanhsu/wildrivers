@@ -33,14 +33,14 @@
 	else {
 		// Access Denied.
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://tools.siskiyourappellers.com/admin/index.php');
+		header('location: https://wildrivers.firecrew.us/admin/index.php');
 	}
 
 	$_SESSION['split_qty'] = 10;
 	$err_msg = "";
 	$content = "";
 
-	$_SESSION['cardholders'] = array('ballard', 'larrimore', 'schutty', 'ormond', 'sailer', 'wfpr', 'other', 'wishlist');
+	$_SESSION['cardholders'] = array('Brett', 'Shelly', 'Mike', 'David', 'Pete', 'Kristin', 'Andrew', 'Stephen', 'other', 'wishlist');
 
 	if(isset($_GET['sort_by'])) $_SESSION['sort_req_view_by'] = $_GET['sort_by'];
 	elseif (!isset($_SESSION['sort_req_view_by'])) $_SESSION['sort_req_view_by'] = "date";
@@ -103,7 +103,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Budget :: Siskiyou Rappel Crew</title>
+	<title>Budget :: Wild Rivers Ranger District</title>
 
 	<?php include("../includes/basehref.html"); ?>
 
@@ -127,15 +127,30 @@
 		order_total_field = document.forms[form_name].elements['order_total'];
 		amount_1_field = document.forms[form_name].elements['amount_1'];
 		
-        amount_1_field.value = order_total_field.value;
+		//if(amount_1_field.value == "") {
+			// If the first line item has not yet been populated with a dollar amount, copy the order total into that field.
+			// THIS WILL OVERWRITE EXISTING VALUES IN THE 'TOTAL' FIELD FOR THE 1ST LINE ITEM
+			amount_1_field.value = order_total_field.value;
+		//}
+			
+/*	
+		for(id=1;id<=10;id++) {
+			//percent_field = document.forms[form_name].elements['percent_'+id];
+			amount_field = document.forms[form_name].elements['amount_'+id];
 
+			if(percent_field.value != '') {
+				amount_field.value = Math.round(req_form.order_total.value * percent_field.value * 100) / 10000;
+			}
+			else amount_field.value = '';
+		}
+*/
 		check_total_math();
 	}
 
 	function update_percent(id) {
 		//THIS FUNCTION IS NO LONGER USED - the 'percent' field has been removed
 		//Update the 'percent' field when the 'amount' field is changed
-		var form_name = 'req_form';
+		var form_name = 'req_form'
 		
 		var percent_field = document.forms[form_name].elements['percent_'+id];
 		var amount_field = document.forms[form_name].elements['amount_'+id];
@@ -270,7 +285,7 @@
 <div id="wrapper" style="min-height:150px;">
  <div id="banner">
         <a href="index.php"><img src="images/banner_index2.jpg" style="border:none" alt="Scroll down..." /></a>
-        <div id="banner_text_bg" style="background: url(images/banner_text_bg2.jpg) no-repeat;">Siskiyou Rappel Crew - Budget Helper</div>
+        <div id="banner_text_bg" style="background: url(images/banner_text_bg2.jpg) no-repeat;">Wild Rivers Ranger District - Budget Helper</div>
     </div>
 
  <?php include("../includes/menu.php"); ?>
@@ -490,6 +505,7 @@ function get_wishlist_requisitions() {
 
 	if(mydb::cxn()->error != '') throw new Exception('There was a problem retrieving the requisition list from the database.<br />\n'.mydb::cxn()->error);
 
+	$requisition_array = array();
 	while($row = $result->fetch_assoc()) {
 		$requisition_array[] = $row;
 	}
@@ -507,6 +523,7 @@ function get_requisitions() {
 	$filter = "";
 	$inverse_filter = "";
 	$include_others = "";
+	$requisition_array = array();
 	$cards_to_omit = array_diff($_SESSION['cardholders'], array('other'));
 	
 	foreach($_SESSION['filter_cards_to_include'] as $card_to_include) {
@@ -575,7 +592,7 @@ function get_requisitions() {
 			break;
 		case "date":
 		default:
-			$order_by = " ORDER BY date DESC, id, charge_code";
+			$order_by = " ORDER BY date, id, charge_code";
 			$_SESSION['sort_req_view_by'] = "date";
 			break;
 	}
@@ -717,7 +734,11 @@ function display_requisitions($requisition_array) {
 	$content .= "<form action=\"".$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."\" method=\"GET\">"
 			   ."<select name=\"year\">\n";
 	$row = $result->fetch_assoc();
-	$earliest_fiscal_year = to_fiscal_year($row['datef']);
+	if(empty($row)) {
+		$earliest_fiscal_year = to_fiscal_year(date('m/d/Y'));
+	} else {
+		$earliest_fiscal_year = to_fiscal_year($row['datef']);
+	}
 	$current_fiscal_year = to_fiscal_year(date('m/d/Y'));
 
 	for($fiscal_year = $current_fiscal_year; $fiscal_year >= $earliest_fiscal_year; $fiscal_year--) {
