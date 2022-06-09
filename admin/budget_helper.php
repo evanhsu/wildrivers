@@ -40,7 +40,7 @@
 	$err_msg = "";
 	$content = "";
 
-	$_SESSION['cardholders'] = array('Brett', 'Shelly', 'Mike', 'David', 'Pete', 'Kristin', 'Andrew', 'Stephen', 'other', 'wishlist');
+	$_SESSION['cardholders'] = array('Brett', 'Shelly', 'Mike', 'David', 'Pete', 'Kristin', 'Andrew', 'Stephen', 'Alex', 'other', 'wishlist');
 
 	if(isset($_GET['sort_by'])) $_SESSION['sort_req_view_by'] = $_GET['sort_by'];
 	elseif (!isset($_SESSION['sort_req_view_by'])) $_SESSION['sort_req_view_by'] = "date";
