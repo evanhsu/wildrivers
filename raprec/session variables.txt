@@ -1,5 +1,0 @@
-$_SESSION['current_user']
-
-$_SESSION['dbh']
-$_SESSION['logged_in']
-$_SESSION['mobile']

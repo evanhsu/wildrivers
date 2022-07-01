@@ -5,7 +5,7 @@
 	require_once("../classes/mydb_class.php");
 	
 	// if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "inventory") header('location: http://inventory.siskiyourappellers.com');
-	$php_self = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+	$php_self = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 	$php_self_with_query = $php_self . "?" . $_SERVER['QUERY_STRING'];
 	$_SESSION['last_page'] = $_SESSION['this_page'];
 	$_SESSION['this_page'] = $php_self_with_query;
@@ -38,7 +38,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Inventory :: Siskiyou Rappel Crew</title>
+<title>Inventory :: Wild Rivers Ranger District</title>
 <?php include("../includes/basehref.html"); ?>
 <meta name="Author" content="Evan Hsu" />
 <meta name="Keywords" content="inventory, ims, tracking, records, items, gear, equipment, helitack, hecm, crew, prineville" />

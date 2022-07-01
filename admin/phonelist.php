@@ -8,7 +8,7 @@
 	}
 	else {
 		$_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://tools.siskiyourappellers.com/admin/index.php');
+		header('location: https://wildrivers.firecrew.us/admin/index.php');
 	}
 	//------
 	// View/Edit privileges determine whether listings show as links, or just as plain text
@@ -193,7 +193,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Phonelist :: Siskiyou Rappel Crew</title>
+	<title>Phonelist :: Wild Rivers Ranger District</title>
 
 	<?php include("../includes/basehref.html"); ?>
 
@@ -234,7 +234,7 @@
 		if($_SESSION['mobile'] != 1) {
 			echo "<div id=\"banner\">\n"
         		."<a href=\"index.php\"><img src=\"images/banner_index2.jpg\" style=\"border:none\" alt=\"Scroll down...\" /></a>\n"
-        		."<div id=\"banner_text_bg\" style=\"background: url(images/banner_text_bg2.jpg) no-repeat;\">Siskiyou Rappel Crew - Phonelist</div>\n"
+        		."<div id=\"banner_text_bg\" style=\"background: url(images/banner_text_bg2.jpg) no-repeat;\">Wild Rivers Ranger District - Phonelist</div>\n"
     			."</div>\n";
 			include("../includes/menu.php");
 		}

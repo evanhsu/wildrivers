@@ -8,7 +8,7 @@
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://tools.siskiyourappellers.com/admin/index.php');
+		header('location: https://wildrivers.firecrew.us/admin/index.php');
 	}
 	
 	if(isset($_POST['function'])) {
@@ -81,7 +81,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Backup / Restore Database :: Siskiyou Rappel Crew</title>
+<title>Backup / Restore Database :: Wild Rivers Ranger District</title>
 
 <?php include("../includes/basehref.html"); ?>
 
@@ -107,7 +107,7 @@
 <div id="wrapper">
 	<div id="banner">
         <a href="index.php"><img src="images/banner_index2.jpg" style="border:none" alt="Scroll down..." /></a>
-        <div id="banner_text_bg" style="background: url(images/banner_text_bg2.jpg) no-repeat;">Siskiyou Rappel Crew - Data Integrity Console</div>
+        <div id="banner_text_bg" style="background: url(images/banner_text_bg2.jpg) no-repeat;">Wild Rivers Ranger District - Data Integrity Console</div>
     </div>
 
 	<?php include("../includes/menu.php"); ?>

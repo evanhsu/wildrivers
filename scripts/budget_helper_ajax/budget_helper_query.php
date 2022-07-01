@@ -8,7 +8,7 @@
 	}
 	else {
 		// Access Denied.
-		header('location: http://tools.siskiyourappellers.com/admin/index.php');
+		header('location: https://wildrivers.firecrew.us/admin/index.php');
 	}
 */
 	

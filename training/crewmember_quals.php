@@ -29,7 +29,7 @@
 
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
+	else header('location: https://wildrivers.firecrew.us/admin/index.php');
 ?>
 
 
@@ -40,7 +40,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Training Tracker :: Siskiyou Rappel Crew</title>
+<title>Training Tracker :: Wild Rivers Ranger District</title>
 
 <?php include("../includes/basehref.html"); ?>
 
@@ -56,7 +56,7 @@
 <body>
 <div id="wrapper" style="height:75px; min-height:75px; width:900px;">
 	<div id="banner">
-        <a href="http://tools.siskiyourappellers.com/incidents" style="display:block; width:900px; height:75px; padding:0;"><img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." /></a>
+        <a href="https://wildrivers.firecrew.us/incidents" style="display:block; width:900px; height:75px; padding:0;"><img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." /></a>
     </div>
 </div>
 

@@ -6,7 +6,7 @@
 	if($_SESSION['logged_in'] == 1) {
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
+	else header('location: https://wildrivers.firecrew.us/admin/index.php');
 ?>
 
 <html>

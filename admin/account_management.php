@@ -8,7 +8,7 @@
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://tools.siskiyourappellers.com/admin/index.php');
+		header('location: https://wildrivers.firecrew.us/admin/index.php');
 	}
 //-------------------------------------------------------------------------------------
 function get_access_level () {
@@ -37,17 +37,18 @@ function echo_checkboxes() {
 	echo "<input type=\"checkbox\" name=\"account_management\">Account Management<br>\n"
 		."<input type=\"checkbox\" name=\"backup_restore\">dB Backup & Restore<br>\n"
 		."<input type=\"checkbox\" name=\"roster\">Roster<br>\n"
-		."<input type=\"checkbox\" name=\"edit_phonelist\">Edit Phonelist<br>\n"
+//		."<input type=\"checkbox\" name=\"edit_phonelist\">Edit Phonelist<br>\n"
 		."<input type=\"checkbox\" name=\"inventory\">Inventory<br>\n"
 		."<input type=\"checkbox\" name=\"edit_incidents\">Edit Incidents<br>\n"
 		."<input type=\"checkbox\" name=\"budget_helper\">Budget Helper<br>\n"
 		."<input type=\"checkbox\" name=\"budget_helper_admin\">Budget Helper Approver<br>\n"
-		."<input type=\"checkbox\" name=\"flight_hours\">Flight Hours<br>\n"
-		."<input type=\"checkbox\" name=\"crew_status\">Crew Status<br>\n"
-		."<input type=\"checkbox\" name=\"photos\">Photos<br>\n"
-		."<input type=\"checkbox\" name=\"update_jobs\">Update Job Vacancies<br>\n"
-		."<input type=\"checkbox\" name=\"order_apparel\">Order Apparel<br>\n"
-		."<input type=\"checkbox\" name=\"manage_apparel\">Manage Apparel\n";
+//		."<input type=\"checkbox\" name=\"flight_hours\">Flight Hours<br>\n"
+//		."<input type=\"checkbox\" name=\"crew_status\">Crew Status<br>\n"
+//		."<input type=\"checkbox\" name=\"photos\">Photos<br>\n"
+//		."<input type=\"checkbox\" name=\"update_jobs\">Update Job Vacancies<br>\n"
+//		."<input type=\"checkbox\" name=\"order_apparel\">Order Apparel<br>\n"
+//		."<input type=\"checkbox\" name=\"manage_apparel\">Manage Apparel\n"
+        ;
 }
 //-------------------------------------------------------------------------------------
 function build_auth_info_array() {
@@ -56,7 +57,23 @@ function build_auth_info_array() {
 	$result = mydb::cxn()->query($query) or die("Error retrieving usernames for edit_user list: " . mydb::cxn()->error);
 	
 	//Build a local array of access privileges for each user
-	$access_levels = array('account_management','backup_restore','roster','edit_phonelist','inventory','edit_incidents','budget_helper','budget_helper_admin','flight_hours','crew_status','photos','update_jobs', 'order_apparel', 'manage_apparel');
+	$access_levels = array(
+        'account_management',
+        'backup_restore',
+        'roster',
+//        'edit_phonelist',
+        'inventory',
+        'edit_incidents',
+        'budget_helper',
+        'budget_helper_admin',
+//        'flight_hours',
+//        'crew_status',
+//        'photos',
+//        'update_jobs',
+//        'order_apparel',
+//        'manage_apparel'
+    );
+
 	while($row = $result->fetch_assoc()) {
 		$auth_info[$row['id']] = array('username'=>$row['username'], 'real_name'=>$row['real_name'], 'id'=>$row['id']);
 		foreach($access_levels as $area) {
@@ -87,7 +104,7 @@ function build_auth_info_array() {
                 return $html;
         }
 //-------------------------------------------------------------------------------------
-$auth_info = "";
+$auth_info = array();
 build_auth_info_array();
 ?>
 
@@ -97,12 +114,12 @@ build_auth_info_array();
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Manage Accounts :: Siskiyou Rappel Crew</title>
+<title>Manage Accounts :: Wild Rivers Ranger District</title>
 
 <?php include("../includes/basehref.html"); ?>
 
 <meta name="Author" content="Evan Hsu" />
-<meta name="Keywords" content="fire, wildland, firefighting, suppression, helicopter, aviation, cofms, fire management, central, oregon, helitack, hecm, crew, prineville" />
+<meta name="Keywords" content="fire, wildland, firefighting, suppression" />
 <meta name="Description" content="Manage Accounts - Adjust access privileges, Create & Delete user accounts" />
 
 <link rel="stylesheet" type="text/css" href="styles/main_style.css" />
@@ -127,7 +144,7 @@ build_auth_info_array();
 <div id="wrapper">
 	<div id="banner">
         <a href="index.php"><img src="images/banner_index2.jpg" style="border:none" alt="Scroll down..." /></a>
-        <div id="banner_text_bg" style="background: url(images/banner_text_bg2.jpg) no-repeat;">Siskiyou Rappel Crew - Account Management</div>
+        <div id="banner_text_bg" style="background: url(images/banner_text_bg2.jpg) no-repeat;">Wild Rivers Ranger District - Account Management</div>
     </div>
 
 	<?php include("../includes/menu.php"); ?>

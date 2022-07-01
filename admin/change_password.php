@@ -6,7 +6,7 @@
 	
 	if(!$_SESSION['logged_in']) {
 		$_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://tools.siskiyourappellers.com/admin/index.php');
+		header('location: https://wildrivers.firecrew.us/admin/index.php');
 	}
 //-------------------------------------------------------------------------------------
 ?>
@@ -18,7 +18,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Change Password :: Siskiyou Rappel Crew</title>
+<title>Change Password :: Wild Rivers Ranger District</title>
 
 <?php include("../includes/basehref.html"); ?>
 
@@ -46,7 +46,7 @@
 <div id="wrapper">
 	<div id="banner">
         <a href="index.php"><img src="images/banner_index2.jpg" style="border:none" alt="Scroll down..." /></a>
-        <div id="banner_text_bg" style="background: url(images/banner_text_bg2.jpg) no-repeat;">Siskiyou Rappel Crew - Change Password</div>
+        <div id="banner_text_bg" style="background: url(images/banner_text_bg2.jpg) no-repeat;">Wild Rivers Ranger District - Change Password</div>
     </div>
 
 	<?php include("../includes/menu.php"); ?>

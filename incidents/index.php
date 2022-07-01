@@ -42,7 +42,7 @@
 
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: http://tools.siskiyourappellers.com/admin/index.php');
+	else header('location: https://wildrivers.firecrew.us/admin/index.php');
 ?>
 
 
@@ -53,7 +53,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Incident Catalog :: Siskiyou Rappel Crew</title>
+<title>Incident Catalog :: Wild Rivers Ranger District</title>
 
 <?php include("../includes/basehref.html"); ?>
 
@@ -102,7 +102,7 @@ td.form {
 <SCRIPT language="JavaScript1.2">
 function open_calendar()
 {
-new_window= window.open ("http://tools.siskiyourappellers.com/incidents/calendar.php", "Helitack Calendar","location=0,status=0,scrollbars=0,width=810,height=610");
+new_window= window.open ("https://wildrivers.firecrew.us/incidents/calendar.php", "Helitack Calendar","location=0,status=0,scrollbars=0,width=810,height=610");
 //testwindow.moveTo(0,0);
 }
 </SCRIPT>
@@ -111,10 +111,13 @@ new_window= window.open ("http://tools.siskiyourappellers.com/incidents/calendar
 
 
 <body>
-<div id="wrapper" style="height:75px; min-height:75px; width:900px;">
-	<div id="banner">
-        <a href="http://tools.siskiyourappellers.com/incidents" style="display:block; width:900px; height:75px; padding:0;"><img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." /></a>
-    </div>
+<div id="wrapper" style="height:75px; min-height:75px; width:640px; position: relative;">
+	<div id="banner" style="height: 75px">
+		<span style="position: absolute; width: 100%; text-align: center; bottom: 0px; font-size: 60px; color: white;">Incident Catalog</span>
+		<a href="https://wildrivers.firecrew.us/incidents" style="display:block; padding:0;">
+			<img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." />
+		</a>
+	</div>
 </div>
 
 <div id="wrapper" style="width:95%;">
@@ -131,7 +134,7 @@ new_window= window.open ("http://tools.siskiyourappellers.com/incidents/calendar
 				<a href=\"" . $php_self . "?function=add_line\" class=\"menulink\">Add New Incident</a> |";
 				
 		//echo "	<a href=\"" . $php_self . "\" class=\"menulink\" onClick=\"open_calendar()\">View Calendar</a> |";
-		echo "<a href=\"admin/index.php\" class=\"menulink\">Admin Home</a> |
+		echo " <a href=\"admin/index.php\" class=\"menulink\">Admin Home</a> |
 				<a href=\"admin/index.php?logout=1\" class=\"menulink\">Logout</a>
 			</div><br style=\"clear:left;\">\n";
 		

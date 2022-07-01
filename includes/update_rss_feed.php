@@ -28,7 +28,7 @@ function update_rss_feed() {
 		  ."<channel>\n\n"
 	  
 		  ."<title>SRC - Crew Status</title>\n"
-		  ."<link>http://tools.siskiyourappellers.com/current.php</link>\n"
+		  ."<link>https://wildrivers.firecrew.us/current.php</link>\n"
 		  ."<description>\n"
 		  ."	The Crew Status Page provides information on the whereabouts of crewmembers\n"
 		  ."	and the various projects that we're currently working on.\n"

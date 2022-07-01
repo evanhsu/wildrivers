@@ -8,7 +8,7 @@
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: http://tools.siskiyourappellers.com/admin/index.php');
+		header('location: https://wildrivers.firecrew.us/admin/index.php');
 	}
 
 
@@ -28,8 +28,8 @@
 		//update_rss_feed($current_sticky, $current_text, time());
 		update_rss_feed();
 
-		header('location: http://tools.siskiyourappellers.com/current.php');
-		//header('location: http://tools.siskiyourappellers.com/admin/update_facebook_wall.php');
+		header('location: https://wildrivers.firecrew.us/current.php');
+		//header('location: https://wildrivers.firecrew.us/admin/update_facebook_wall.php');
 		exit();
 	}
 	
@@ -54,7 +54,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Update :: Siskiyou Rappel Crew</title>
+<title>Update :: Wild Rivers Ranger District</title>
 
 <?php include("../includes/basehref.html"); ?>
 
@@ -91,7 +91,7 @@
 	<?php if($_SESSION['mobile'] != 1) {
 		echo "<div id=\"banner\">
         	<a href=\"index.php\"><img src=\"images/banner_index2.jpg\" style=\"border:none\" /></a>
-        	<div id=\"banner_text_bg\" style=\"background: url(images/banner_text_bg2.jpg) no-repeat;\">Siskiyou Rappel Crew - Current Events Update Form</div>
+        	<div id=\"banner_text_bg\" style=\"background: url(images/banner_text_bg2.jpg) no-repeat;\">Wild Rivers Ranger District - Current Events Update Form</div>
     	</div>";
 
 		include("../includes/menu.php");
