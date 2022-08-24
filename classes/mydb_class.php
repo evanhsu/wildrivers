@@ -1,4 +1,6 @@
 <?php
+require_once("../classes/Config.php");
+
 class mydb {
 
     private static $_connection;
@@ -6,14 +8,17 @@ class mydb {
     public static function cxn()
     {
 		if( !self::$_connection ) {
-            $host = "localhost";
-            $user = "wildrivers";
-            $passwd="";
-            $database = "wildrivers";
-            $port = 65536;
+		    $config = ConfigService::getConfig();
+
+            $host = $config->db_host;
+            $user = $config->db_username;
+            $passwd = $config->db_password;
+            $database = $config->db_database;
+            $port = $config->db_port;
+
 
 			// Using mysqli (PHP 5)
-			self::$_connection = new mysqli($host,$user,$passwd,$database);
+			self::$_connection = new mysqli($host,$user,$passwd,$database,$port);
 
 			/* Check Connection */
 			if (self::$_connection->connect_error) {
@@ -24,4 +29,4 @@ class mydb {
 		return self::$_connection;
     }
 }
-?>
+
