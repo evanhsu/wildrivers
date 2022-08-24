@@ -4,7 +4,6 @@
 	require_once("../includes/auth_functions.php");
 	require_once("../classes/mydb_class.php");
     require_once("../classes/Config.php");
-    var_dump(ConfigService::getConfig()->app_url);
 
 
 if(isset($_GET['logout']) && ($_GET['logout'] == 1)) {
