@@ -74,6 +74,7 @@ jobs:
 
       # To save space in the container registry, we'll delete all images that DON'T have the "latest" or "prod" tags
       - name: Delete unused images from container registry
+        continue-on-error: true
         run: |
           ALL_MANIFESTS=$(doctl registry repository list-manifests wildrivers-app --format Digest,Tags --output json)
           STALE_MANIFESTS=$(echo $ALL_MANIFESTS | jq -c -r '. - map( select(.tags[] | contains("latest", "prod"))) | [.[].digest] | unique | join(" ")')
