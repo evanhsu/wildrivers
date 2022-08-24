@@ -3,8 +3,11 @@
 	session_start();
 	require_once("../includes/auth_functions.php");
 	require_once("../classes/mydb_class.php");
-	
-	if(isset($_GET['logout']) && ($_GET['logout'] == 1)) {
+    require_once("../classes/Config.php");
+    var_dump(ConfigService::getConfig()->app_url);
+
+
+if(isset($_GET['logout']) && ($_GET['logout'] == 1)) {
 		session_destroy();
 		session_start();
 	}
@@ -25,7 +28,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Admin :: Wild Rivers</title>
-<?php include("../includes/basehref.html"); ?>
+<base href="<?php echo ConfigService::getConfig()->app_url ?>">
 <meta name="Author" content="Evan Hsu" />
 <meta name="Keywords" content="fire, wildland, firefighting, suppression, helicopter, aviation, cofms, fire management, central, oregon, helitack, hecm, crew, prineville" />
 <meta name="Description" content="Administrative Portal" />

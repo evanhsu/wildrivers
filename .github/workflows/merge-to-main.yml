@@ -1,0 +1,86 @@
+name: "Build image & deploy to dev"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-push-image-to-registry:
+    name: Build image & deploy to dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 1200
+
+      # This step will exit with an error if there's no active garbage collection in progress.
+      # So we'll need to continue-on-error to handle that scenario.
+      - name: Check for an active garbage collection process in the container registry
+        id: active-garbage-collection
+        continue-on-error: true
+        run: |
+          GC=$(doctl registry garbage-collection get-active --format UUID,RegistryName,Status --output json)
+          echo "::set-output name=uuid::$(echo $GC | jq -r '.[0].uuid')"
+          echo "Found active garbage collection in progress: $GC"
+
+      # The DigitalOcean container registry is read-only during garbage collection, which can last 15 minutes or so.
+      # We need to cancel the current garbage collection process so that we can push the image that we're about to build
+      - name: Cancel any active garbage collection in the container registry
+        if: steps.active-garbage-collection.outputs.uuid != ''
+        run: doctl registry garbage-collection cancel ${{ steps.active-garbage-collection.outputs.uuid }}
+
+      - name: Get short-sha
+        id: shortsha
+        run: echo "::set-output name=shortsha::$(echo $GITHUB_SHA | head -c7)"
+
+      # Uses credentials from the evanhsu/AuthBot Github App (https://github.com/settings/installations/28169783)
+      - id: deploy-pat
+        uses: getsentry/action-github-app-token@v1
+        with:
+          app_id: ${{ secrets.AUTHBOT_APP_ID }}
+          private_key: ${{ secrets.AUTHBOT_PRIVATE_KEY }}
+
+      # Build a Docker image and tag it with the $GITHUB_SHA
+      # Also tag it with 'latest' to denote that this image is built from the tip of the 'main' branch
+      - name: Build image
+        run: docker build -t registry.digitalocean.com/firecrew/wildrivers-app:${{ steps.shortsha.outputs.shortsha }} -t registry.digitalocean.com/firecrew/wildrivers-app:latest .
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push --all-tags registry.digitalocean.com/firecrew/wildrivers-app
+
+      - name: Update image tag in k8s deployment repo
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Update image tag
+          repo: evanhsu/smirksoftware-k8s
+          # Always trigger the target workflow on the main branch of the target repo
+          ref: main
+          token: ${{ steps.deploy-pat.outputs.token }}
+          inputs: '{ "app": "wildrivers", "environment": "dev", "image": "firecrew/wildrivers-app", "tag": "${{ steps.shortsha.outputs.shortsha }}"}'
+
+      # To save space in the container registry, we'll delete all images that DON'T have the "latest" or "prod" tags
+      - name: Delete unused images from container registry
+        run: |
+          ALL_MANIFESTS=$(doctl registry repository list-manifests wildrivers-app --format Digest,Tags --output json)
+          STALE_MANIFESTS=$(echo $ALL_MANIFESTS | jq -c -r '. - map( select(.tags[] | contains("latest", "prod"))) | [.[].digest] | unique | join(" ")')
+          [[ -n $STALE_MANIFESTS ]] && doctl registry repository delete-manifest wildrivers-app $STALE_MANIFESTS --force
+          echo Manifests removed: $STALE_MANIFESTS
+
+      # The storage space isn't actually reclaimed until we run garbage collection in the container registry.
+      # This will put the registry into read-only mode for about 15 minutes while garbage collection completes.
+      - name: Run garbage collection in the DigitalOcean Container Registry
+        run: doctl registry garbage-collection start --include-untagged-manifests --force

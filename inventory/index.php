@@ -39,7 +39,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Inventory :: Wild Rivers Ranger District</title>
-<?php include("../includes/basehref.html"); ?>
+<?php include_once("../classes/Config.php"); ?><base href="<?php ">
 <meta name="Author" content="Evan Hsu" />
 <meta name="Keywords" content="inventory, ims, tracking, records, items, gear, equipment, helitack, hecm, crew, prineville" />
 <meta name="Description" content="View & update crew gear inventory" />

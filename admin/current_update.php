@@ -56,7 +56,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Update :: Wild Rivers Ranger District</title>
 
-<?php include("../includes/basehref.html"); ?>
+<?php include_once("../classes/Config.php"); ?>
+<base href="<?php echo ConfigService::getConfig()->app_url ?>" />
 
 <meta name="Author" content="Evan Hsu" />
 <meta name="Keywords" content="fire, wildland, firefighting, suppression, helicopter, aviation, cofms, fire management, central, oregon, helitack, hecm, crew, prineville" />
