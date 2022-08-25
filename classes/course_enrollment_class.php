@@ -1,7 +1,7 @@
 <?php
-require_once("../classes/mydb_class.php");
-require_once("../classes/student_class.php");
-require_once("../classes/scheduled_course_class.php");
+require_once(__DIR__ . "/../classes/mydb_class.php");
+require_once(__DIR__ . "/../classes/student_class.php");
+require_once(__DIR__ . "/../classes/scheduled_course_class.php");
 
 class course_enrollment {
 	var $id;					// dB id of this 'enrollment' entry

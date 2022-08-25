@@ -5,7 +5,7 @@
 	// via POST.  The status of a paycheck is boolean variable in the database that designates whether a specific paycheck
 	// has been SUBMITTED in Paycheck8.
 	$password = "siskiyou";
-	require_once("../classes/mydb_class.php");
+	require_once(__DIR__ . "/../classes/mydb_class.php");
 	
 	if(isset($_POST['password']) && $_POST['password'] == $password && isset($_POST['person_id']) && $_POST['person_id'] != "") {
 		update_or_insert_paycheck($_POST['year'], $_POST['payperiod'], $_POST['person_id'], $_POST['status']);

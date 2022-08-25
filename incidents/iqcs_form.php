@@ -4,12 +4,12 @@
 	$template = "../includes/IQCStemplate.pdf";
 	
 	if($_SESSION['logged_in'] == 1) {
-		//require_once("../includes/inc_functions.php");
-		require_once("../classes/mydb_class.php");
-		require_once("../includes/merge_pdf.php");
+		//require_once(__DIR__ . "/../includes/inc_functions.php");
+		require_once(__DIR__ . "/../classes/mydb_class.php");
+		require_once(__DIR__ . "/../includes/merge_pdf.php");
 	}
 	else {
-		include_once("../classes/Config.php");
+		include_once(__DIR__ . "/../classes/Config.php");
 		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 	}
 

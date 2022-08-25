@@ -1,8 +1,8 @@
 <?php
 
 	session_start();
-	require_once("../classes/mydb_class.php");
-	require_once("../includes/auth_functions.php");
+	require_once(__DIR__ . "/../classes/mydb_class.php");
+	require_once(__DIR__ . "/../includes/auth_functions.php");
 
 	if(($_SESSION['logged_in'] == 1) && ($_GET['list'] == "wishlist") && check_access("budget_helper")) {
 		// Access Granted!

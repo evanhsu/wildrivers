@@ -3,6 +3,6 @@
 	// as well as setting the $_SESSION['mobile'] flag
 	session_start();
 	$_SESSION['mobile'] = 1;
-	include_once("../classes/Config.php");
+	include_once(__DIR__ . "/../classes/Config.php");
 		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 ?>

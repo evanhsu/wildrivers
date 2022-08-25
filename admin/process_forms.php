@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("../classes/mydb_class.php");
+require_once(__DIR__ . "/../classes/mydb_class.php");
 
 switch($_POST['form_name']) {
 	case 'req_form':

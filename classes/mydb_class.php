@@ -1,5 +1,5 @@
 <?php
-require_once("../classes/Config.php");
+require_once(__DIR__ . "/Config.php");
 
 class mydb {
 

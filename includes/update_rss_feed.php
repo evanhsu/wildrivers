@@ -1,5 +1,5 @@
 <?php
-require_once("../classes/mydb_class.php");
+require_once(__DIR__ . "/../classes/mydb_class.php");
 
 function new_crop_length($needle, $sub_length, $content) {
 	$new_length = $sub_length;

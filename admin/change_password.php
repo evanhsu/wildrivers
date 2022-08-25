@@ -1,12 +1,12 @@
 <?php
 
 	session_start();
-	require_once("../includes/auth_functions.php");
-	require_once("../classes/mydb_class.php");
+	require_once(__DIR__ . "/../includes/auth_functions.php");
+	require_once(__DIR__ . "/../classes/mydb_class.php");
 	
 	if(!$_SESSION['logged_in']) {
 		$_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		include_once("../classes/Config.php");
+		include_once(__DIR__ . "/../classes/Config.php");
 		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 	}
 //-------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Change Password :: Wild Rivers Ranger District</title>
 
-<?php include_once("../classes/Config.php"); ?>
+<?php include_once(__DIR__ . "/../classes/Config.php"); ?>
 <base href="<?php echo ConfigService::getConfig()->app_url ?>" />
 
 <meta name="Author" content="Evan Hsu" />

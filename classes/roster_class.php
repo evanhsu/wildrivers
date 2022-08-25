@@ -1,6 +1,6 @@
 <?php
-require_once("../classes/mydb_class.php");
-require_once("../classes/person_class.php");
+require_once(__DIR__ . "/../classes/mydb_class.php");
+require_once(__DIR__ . "/../classes/person_class.php");
 
 class roster {
 
@@ -16,10 +16,7 @@ class roster {
 	var $female_count;
 	
 /********** Constructor **************************************/
-	function __constructor() {
-		//include_once("./includes/connect.php");
-		//$this->mysqli = connect();
-	}
+	function __constructor() {}
 
 /*******************************************************************************************************************************/
 /*********************************** FUNCTION: set() ***************************************************************************/

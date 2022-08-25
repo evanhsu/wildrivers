@@ -23,9 +23,6 @@ function mw_wotd() {
 }
 
 function get_chuck_norris_fact() {
-	//require_once("scripts/connect.php");
-	//$dbh = connect();
-	
 	$query = "SELECT MAX(id) as max, MIN(id) as min from chuck_norris_facts";
 	$result= mydb::cxn()->query($query);
 	$row = $result->fetch_assoc();
@@ -63,7 +60,7 @@ function get_civil_twilight() {
 	
 	$output = substr($document,$start,$end-$start);
 
-	// If the civil twilight string is susiciously long, just toss it out and reply "Unknown"
+	// If the civil twilight string is suspiciously long, just toss it out and reply "Unknown"
 	if(strlen($output) > 25) {
 		$output = "Unknown";
 	}

@@ -1,5 +1,5 @@
 <?php
-require_once("../classes/mydb_class.php");
+require_once(__DIR__ . "/../classes/mydb_class.php");
 
 class scheduled_course {
 	var $id;					// dB id of this scheduled_course entry in the 'scheduled_courses' dB table

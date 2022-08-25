@@ -12,7 +12,7 @@
 	//Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 	//Zend_Loader::loadClass('Zend_Gdata_Calendar');
 
-	require_once("../includes/auth_functions.php");
+	require_once(__DIR__ . "/../includes/auth_functions.php");
 	//include("../includes/g_calendar_functions.php");
 	
 	//if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "incidents") header('location: http://incidents.siskiyourappellers.com');
@@ -28,8 +28,8 @@
 	}
 
 	if($_SESSION['logged_in'] == 1) {
-		require_once("../includes/inc_functions.php"); //Contains functions: add_line, rm_line, get_incidents
-		require_once("../classes/mydb_class.php");
+		require_once(__DIR__ . "/../includes/inc_functions.php"); //Contains functions: add_line, rm_line, get_incidents
+		require_once(__DIR__ . "/../classes/mydb_class.php");
 
 		if(isset($_GET['sort_by'])) $_SESSION['sort_view_by'] = $_GET['sort_by'];
 		elseif (!isset($_SESSION['sort_view_by'])) $_SESSION['sort_view_by'] = "date";
@@ -43,7 +43,7 @@
 	}//END if($_SESSION['logged_in'] == 1)
 
 	else {
-	    include_once("../classes/Config.php");
+	    include_once(__DIR__ . "/../classes/Config.php");
 		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
     }
 ?>
@@ -58,7 +58,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Incident Catalog :: Wild Rivers Ranger District</title>
 
-<?php include_once("../classes/Config.php"); ?>
+<?php include_once(__DIR__ . "/../classes/Config.php"); ?>
 <base href="<?php echo ConfigService::getConfig()->app_url ?>" />
 
 <meta name="Author" content="Evan Hsu" />

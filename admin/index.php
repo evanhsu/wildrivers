@@ -1,9 +1,9 @@
 <?php
 
 	session_start();
-	require_once("../includes/auth_functions.php");
-	require_once("../classes/mydb_class.php");
-    require_once("../classes/Config.php");
+	require_once(__DIR__ . "/../includes/auth_functions.php");
+	require_once(__DIR__ . "/../classes/mydb_class.php");
+    require_once(__DIR__ . "/../classes/Config.php");
 
 
 if(isset($_GET['logout']) && ($_GET['logout'] == 1)) {

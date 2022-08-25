@@ -1005,6 +1005,7 @@ function edit_line_form($idx, $php_self) {
 	//Get attached files
 	$query = "SELECT id, file_path, file_description FROM incident_files WHERE incident_id = ".$idx;
 	$result = mydb::cxn()->query($query);
+	$attached_files = [];
 	while($row = $result->fetch_assoc()) {
 		$attached_files[] = array("id"=>$row['id'], "path"=>$row['file_path'], "description"=>$row['file_description']);
 	}

@@ -1,12 +1,12 @@
 <?php
 
 	session_start();
-	require_once("../includes/auth_functions.php");
+	require_once(__DIR__ . "/../includes/auth_functions.php");
 
 	if($_SESSION['logged_in'] == 1) {
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else include_once("../classes/Config.php");
+	else include_once(__DIR__ . "/../classes/Config.php");
 		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 ?>
 

@@ -32,7 +32,7 @@
 
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else include_once("../classes/Config.php");
+	else include_once(__DIR__ . "/../classes/Config.php");
 		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 ?>
 
@@ -46,7 +46,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Training Tracker :: Wild Rivers Ranger District</title>
 
-<?php include_once("../classes/Config.php"); ?>
+<?php include_once(__DIR__ . "/../classes/Config.php"); ?>
 <base href="<?php echo ConfigService::getConfig()->app_url ?>" />
 
 <meta name="Author" content="Evan Hsu" />

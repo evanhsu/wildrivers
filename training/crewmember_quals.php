@@ -10,11 +10,8 @@
 	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 	Zend_Loader::loadClass('Zend_Gdata_Calendar');
 
-	require_once("../includes/auth_functions.php");
+	require_once(__DIR__ . "/../includes/auth_functions.php");
 	include("../includes/g_calendar_functions.php");
-	
-	//if(substr(strtolower($_SERVER['PHP_SELF']),1,9) == "incidents") header('location: http://incidents.siskiyourappellers.com');
-	//$php_self = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 
 	$php_self = $_SERVER['PHP_SELF'];
 
@@ -27,10 +24,11 @@
 		$allow_edit = 0;
 		if(check_access("edit_training")) $allow_edit = 1;
 
-	}//END if($_SESSION['logged_in'] == 1)
-
-	else include_once("../classes/Config.php");
-		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
+	}
+	else {
+	    include_once(__DIR__ . "/../classes/Config.php");
+        header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
+    }
 ?>
 
 
@@ -43,7 +41,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Training Tracker :: Wild Rivers Ranger District</title>
 
-<?php include_once("../classes/Config.php"); ?>
+<?php include_once(__DIR__ . "/../classes/Config.php"); ?>
 <base href="<?php echo ConfigService::getConfig()->app_url ?>" />
 
 <meta name="Author" content="Evan Hsu" />

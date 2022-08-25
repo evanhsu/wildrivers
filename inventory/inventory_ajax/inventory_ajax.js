@@ -12,7 +12,7 @@ function createObject() {
 		return request_type;
 }
 
-//var http = createObject();
+var http = createObject();
 
 
 
@@ -26,7 +26,7 @@ function changeItemQty(itemID, delta) {
 	
 	// Set the random number to add to URL request to prevent the browser from caching the results
 	nocache = Math.random();
-	http.open('get', 'http://inventory.siskiyourappellers.com/inventory_ajax/inventory_ajax_query.php?function=change_qty&itemID='+itemID+'&nocache='+nocache+'&newQty='+newQty);
+	http.open('get', window.location.origin + '/inventory/inventory_ajax/inventory_ajax_query.php?function=change_qty&itemID='+itemID+'&nocache='+nocache+'&newQty='+newQty);
 	
 	http.onreadystatechange = new Function("qtyUpdateReply('"+itemID+"')");
 	http.send(null);
@@ -75,7 +75,7 @@ function checkIn(itemID) {
 	$.ajax({
 		type: "POST",
 		dataType: "text",
-		url: "http://inventory.siskiyourappellers.com/inventory_ajax/inventory_ajax_query.php?function=check_in",
+		url: window.location.origin + "/inventory/inventory_ajax/inventory_ajax_query.php?function=check_in",
 		data: data,
 	
 		success: function(data,status,jqXHR) {

@@ -1,5 +1,5 @@
 <?php
-require_once("../classes/mydb_class.php");
+require_once(__DIR__ . "/../classes/mydb_class.php");
 
 class student extends person {
 	

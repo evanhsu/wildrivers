@@ -155,11 +155,12 @@ function get_categories() {
 function display_inv($result, $php_self) {
 // Display the inventory, sorted by a user-specified field
 // This function requires that get_inv has been previously run to submit the initial database query
-	
+	require_once(__DIR__ . "/../classes/Config.php");
+
 	$sort_by = $_SESSION['sort_view_by'];
 
 	echo "<span class=\"highlight1\" style=\"display:block\">Inventory is sorted by " . $sort_by . "</span>\n";
-	echo "<a href=\"http://inventory.siskiyourappellers.com/inv_pdf.php\">[Printer-friendly View]</a><br><br>\n";
+	echo "<a href=\"" . ConfigService::getConfig()->app_url . "/inv_pdf.php\">[Printer-friendly View]</a><br><br>\n";
 	
 	//Display crewmember menu
 	//Get current roster
@@ -1362,64 +1363,63 @@ function display_item_history($item_id) {
 
 //==========================================================================================================
 function build_plaintext($attribute, $old_value, $new_value, $changed_by, $date) {
+    $string = '';
 	switch($attribute) {
-	case serial_no:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Serial # changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case item_type:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Item Type changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case quantity:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Quantity changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case restock_trigger:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Restock Trigger changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case restock_to_level:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Restock-To Level changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case item_source:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Item Source changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case size:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Size changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case color:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Color changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case description:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Description changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case checked_out_to_name:
-	case checked_out_to_id:
-	case checked_out_to:
-		if(($old_value == 'unassigned') && ($new_value != 'unassigned')) $string = date('d-M-Y H:i',$date) . "\t" . "<span class=\"check_out\">Checked out to '" . $new_value . "' by " . $changed_by . "</span>";
-		elseif(($old_value != 'unassigned') && ($new_value != 'unassigned')) $string = date('d-M-Y H:i',$date) . "\t" . "<span class=\"check_out\">Checked out to '" . $new_value . "' by " . $changed_by . "</span><br>\n"
-																					. date('d-M-Y H:i',$date) . "\t" . "<span class=\"check_in\">Checked in from '" . $old_value . "' by " . $changed_by . "</span>";
-		else $string = date('d-M-Y H:i',$date) . "\t" . "<span class=\"check_in\">Checked in from '" . $old_value . "' by " . $changed_by . "</span>";
-		break;
-	case item_condition:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Item Condition changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case usable:
-		if(($old_value == 0) && ($new_value == 1)) $string = date('d-M-Y H:i',$date) . "\t" . "Item marked USABLE by " . $changed_by;
-		elseif(($old_value == 1) && ($new_value == 0)) $string = date('d-M-Y H:i',$date) . "\t" . "Item marked UNUSABLE by " . $changed_by;
-		break;
-	case note:
-		$old_value = old_value;
-		$new_value = $new_value;
-		if(($old_value == '') && ($new_value != '')) $string = date('d-M-Y H:i',$date) . "\t" . "Note added: '" . $new_value . "' by " . $changed_by;
-		elseif(($new_value == '') && ($old_value != '')) $string = date('d-M-Y H:i',$date) . "\t" . "Note removed: '" . $old_value . "' by " . $changed_by;
-		else $string = date('d-M-Y H:i',$date) . "\t" . "Note changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
-		break;
-	case created:
-		$string = date('d-M-Y H:i',$date) . "\t" . "Added to inventory by " . $changed_by;
-		break;
-	case vip_contact:
-		$string = date('d-M-Y H:i',$date) . "\t" . "VIP contact info changed from '".$old_value."' to '".$new_value."' by " . $changed_by;
-		break;
-	default:
-		break;
+		case 'serial_no':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Serial # changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'item_type':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Item Type changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'quantity':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Quantity changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'restock_trigger':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Restock Trigger changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'restock_to_level':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Restock-To Level changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'item_source':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Item Source changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'size':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Size changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'color':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Color changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'description':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Description changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'checked_out_to_name':
+		case 'checked_out_to_id':
+		case 'checked_out_to':
+			if(($old_value == 'unassigned') && ($new_value != 'unassigned')) $string = date('d-M-Y H:i',$date) . "\t" . "<span class=\"check_out\">Checked out to '" . $new_value . "' by " . $changed_by . "</span>";
+			elseif(($old_value != 'unassigned') && ($new_value != 'unassigned')) $string = date('d-M-Y H:i',$date) . "\t" . "<span class=\"check_out\">Checked out to '" . $new_value . "' by " . $changed_by . "</span><br>\n"
+																						. date('d-M-Y H:i',$date) . "\t" . "<span class=\"check_in\">Checked in from '" . $old_value . "' by " . $changed_by . "</span>";
+			else $string = date('d-M-Y H:i',$date) . "\t" . "<span class=\"check_in\">Checked in from '" . $old_value . "' by " . $changed_by . "</span>";
+			break;
+		case 'item_condition':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Item Condition changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'usable':
+			if(($old_value == 0) && ($new_value == 1)) $string = date('d-M-Y H:i',$date) . "\t" . "Item marked USABLE by " . $changed_by;
+			elseif(($old_value == 1) && ($new_value == 0)) $string = date('d-M-Y H:i',$date) . "\t" . "Item marked UNUSABLE by " . $changed_by;
+			break;
+		case 'note':
+			if(($old_value == '') && ($new_value != '')) $string = date('d-M-Y H:i',$date) . "\t" . "Note added: '" . $new_value . "' by " . $changed_by;
+			elseif(($new_value == '') && ($old_value != '')) $string = date('d-M-Y H:i',$date) . "\t" . "Note removed: '" . $old_value . "' by " . $changed_by;
+			else $string = date('d-M-Y H:i',$date) . "\t" . "Note changed from '" . $old_value . "' to '" . $new_value . "' by " . $changed_by;
+			break;
+		case 'created':
+			$string = date('d-M-Y H:i',$date) . "\t" . "Added to inventory by " . $changed_by;
+			break;
+		case 'vip_contact':
+			$string = date('d-M-Y H:i',$date) . "\t" . "VIP contact info changed from '".$old_value."' to '".$new_value."' by " . $changed_by;
+			break;
+		default:
+			break;
 	}//END switch
 	
 	return $string;
