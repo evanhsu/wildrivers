@@ -42,7 +42,10 @@
 
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: https://wildrivers.firecrew.us/admin/index.php');
+	else {
+	    include_once("../classes/Config.php");
+		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
+    }
 ?>
 
 
@@ -103,7 +106,7 @@ td.form {
 <SCRIPT language="JavaScript1.2">
 function open_calendar()
 {
-new_window= window.open ("https://wildrivers.firecrew.us/incidents/calendar.php", "Helitack Calendar","location=0,status=0,scrollbars=0,width=810,height=610");
+new_window= window.open ("<?php echo ConfigService::getConfig()->app_url ?>", "Calendar","location=0,status=0,scrollbars=0,width=810,height=610");
 //testwindow.moveTo(0,0);
 }
 </SCRIPT>
@@ -115,9 +118,7 @@ new_window= window.open ("https://wildrivers.firecrew.us/incidents/calendar.php"
 <div id="wrapper" style="height:75px; min-height:75px; width:640px; position: relative;">
 	<div id="banner" style="height: 75px">
 		<span style="position: absolute; width: 100%; text-align: center; bottom: 0px; font-size: 60px; color: white;">Incident Catalog</span>
-		<a href="https://wildrivers.firecrew.us/incidents" style="display:block; padding:0;">
-			<img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." />
-		</a>
+        <img src="incidents/inc_banner.jpg" style="border:none" alt="Scroll down..." />
 	</div>
 </div>
 

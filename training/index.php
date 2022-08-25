@@ -32,7 +32,8 @@
 
 	}//END if($_SESSION['logged_in'] == 1)
 
-	else header('location: https://wildrivers.firecrew.us/admin/index.php');
+	else include_once("../classes/Config.php");
+		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 ?>
 
 

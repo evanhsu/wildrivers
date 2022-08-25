@@ -9,7 +9,8 @@
 	}
 	else {
 		// Access Denied.
-		header('location: https://wildrivers.firecrew.us/admin/index.php');
+		include_once("../classes/Config.php");
+		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 	}
 */
 	switch($_GET['function']) {

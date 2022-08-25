@@ -8,7 +8,8 @@
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: https://wildrivers.firecrew.us/admin/index.php');
+		include_once("../classes/Config.php");
+		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 	}
 //-------------------------------------------------------------------------------------
 function get_access_level () {
@@ -35,7 +36,7 @@ function get_access_level () {
 //-------------------------------------------------------------------------------------
 function echo_checkboxes() {
 	echo "<input type=\"checkbox\" name=\"account_management\">Account Management<br>\n"
-		."<input type=\"checkbox\" name=\"backup_restore\">dB Backup & Restore<br>\n"
+//		."<input type=\"checkbox\" name=\"backup_restore\">dB Backup & Restore<br>\n"
 		."<input type=\"checkbox\" name=\"roster\">Roster<br>\n"
 //		."<input type=\"checkbox\" name=\"edit_phonelist\">Edit Phonelist<br>\n"
 		."<input type=\"checkbox\" name=\"inventory\">Inventory<br>\n"
@@ -248,8 +249,8 @@ function update_checkboxes() {
 	if(auth_info[user_id]['account_management'] == 1) document.access_form.account_management.checked = true;
 	else document.access_form.account_management.checked = false;
 	
-	if(auth_info[user_id]['backup_restore'] == 1) document.access_form.backup_restore.checked = true;
-	else document.access_form.backup_restore.checked = false;
+	// if(auth_info[user_id]['backup_restore'] == 1) document.access_form.backup_restore.checked = true;
+	// else document.access_form.backup_restore.checked = false;
 	
 	if(auth_info[user_id]['roster'] == 1) document.access_form.roster.checked = true;
 	else document.access_form.roster.checked = false;

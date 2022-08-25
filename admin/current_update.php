@@ -8,7 +8,8 @@
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: https://wildrivers.firecrew.us/admin/index.php');
+		include_once("../classes/Config.php");
+        header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 	}
 
 
@@ -28,8 +29,7 @@
 		//update_rss_feed($current_sticky, $current_text, time());
 		update_rss_feed();
 
-		header('location: https://wildrivers.firecrew.us/current.php');
-		//header('location: https://wildrivers.firecrew.us/admin/update_facebook_wall.php');
+		header('location: ' . ConfigService::getConfig()->app_url . '/current.php');
 		exit();
 	}
 	
@@ -56,7 +56,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Update :: Wild Rivers Ranger District</title>
 
-<?php include_once("../classes/Config.php"); ?>
 <base href="<?php echo ConfigService::getConfig()->app_url ?>" />
 
 <meta name="Author" content="Evan Hsu" />

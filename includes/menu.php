@@ -46,14 +46,6 @@ if(check_access("account_management")) {
     echo "<a href=\"#\"></a>";
 }
 echo "</li>\n";
-
-echo "<li>";
-if(check_access("backup_restore")) {
-    echo "<a href=\"admin/backup_restore.php\">Data Backup/Restore</a>";
-} else {
-    echo "<a href=\"#\"></a>";
-}
-echo "</li>\n";
 ?>
     
 </ul>

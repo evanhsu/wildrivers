@@ -27,7 +27,10 @@
 		if(isset($_GET['year'])) $_SESSION['year'] = $_GET['year'];
 		
 	}//END if($_SESSION['logged_in'] == 1)
-	else header('location: /admin/index.php');
+	else {
+        include_once("../classes/Config.php");
+        header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
+    }
 
 ?>
 
@@ -39,7 +42,10 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Inventory :: Wild Rivers Ranger District</title>
-<?php include_once("../classes/Config.php"); ?><base href="<?php ">
+
+<?php include_once("../classes/Config.php"); ?>
+<base href="<?php echo ConfigService::getConfig()->app_url ?>" />
+
 <meta name="Author" content="Evan Hsu" />
 <meta name="Keywords" content="inventory, ims, tracking, records, items, gear, equipment, helitack, hecm, crew, prineville" />
 <meta name="Description" content="View & update crew gear inventory" />

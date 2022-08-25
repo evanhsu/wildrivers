@@ -33,7 +33,8 @@
 	else {
 		// Access Denied.
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: https://wildrivers.firecrew.us/admin/index.php');
+		include_once("../classes/Config.php");
+		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 	}
 
 	$_SESSION['split_qty'] = 10;

@@ -89,7 +89,6 @@ if(isset($_GET['logout']) && ($_GET['logout'] == 1)) {
 					
                     echo "<a href=\"admin/change_password.php\">Change Password</a> -- Change your login password<br>\n";
 					if(check_access("account_management")) echo "<a href=\"admin/account_management.php\">User Accounts</a> -- Modify user access privileges<br>\n";
-					if(check_access("backup_restore")) echo "<br><b>Database Recovery</b><br>\n<a href=\"admin/backup_restore.php\">Data Integrity Console</a> -- Backup or Restore the database<br>\n";
 				}//END if($_SESSION['mobile'] != 1)
 				echo "<br><br><a href=\"".$_SERVER['PHP_SELF']."?logout=1&mobile=".$_SESSION['mobile']."\">Logout</a><br>";
             }

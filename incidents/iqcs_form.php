@@ -8,7 +8,10 @@
 		require_once("../classes/mydb_class.php");
 		require_once("../includes/merge_pdf.php");
 	}
-	else header('location: https://wildrivers.firecrew.us/admin/index.php');
+	else {
+		include_once("../classes/Config.php");
+		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
+	}
 
 	$php_self = $_SERVER['PHP_SELF'];
 	

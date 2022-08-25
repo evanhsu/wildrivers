@@ -7,7 +7,8 @@
 	}
 	else {
 		if($_SESSION['logged_in'] != 1) $_SESSION['intended_location'] = $_SERVER['PHP_SELF'];
-		header('location: https://wildrivers.firecrew.us/admin/index.php');
+		include_once("../classes/Config.php");
+		header('location: ' . ConfigService::getConfig()->app_url . '/admin/index.php');
 	}
 	//-----------------------------------------------------------------------------
 	if(preg_match('/^(20)\d{2}$/',$_GET['year']) == 1) $year = $_GET['year']; //Check for 4-digit number between 2000 - 2099
