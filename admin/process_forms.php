@@ -67,7 +67,6 @@ function commit_requisition() {
 				$pri_value = ",".$row['nextpri'];
 			}
 
-			if(!get_magic_quotes_gpc()) {
 				$query = "INSERT INTO requisitions (vendor_info,description,amount,date,card_used".$pri_field.",added_by) "
 				  ."VALUES (\"".mydb::cxn()->real_escape_string($_POST['vendor_info'])."\",\""
 				  .mydb::cxn()->real_escape_string($_POST['description'])."\","
@@ -76,17 +75,6 @@ function commit_requisition() {
 				  .",\"".mydb::cxn()->real_escape_string($_POST['card_used'])."\""
 				  .$pri_value
                                   .",\"".$_POST['added_by']."\")";
-			}
-			else {
-				$query = "INSERT INTO requisitions (vendor_info,description,amount,date,card_used".$pri_field.",added_by) "
-				  ."VALUES (\"".$_POST['vendor_info']."\",\""
-				  .$_POST['description']."\","
-				  .$amount
-				  .",str_to_date('".$date."','%m/%d/%Y')"
-				  .",\"".$_POST['card_used']."\""
-				  .$pri_value
-                                  .",\"".$_POST['added_by']."\")";
-			}
 			
 			$result = mydb::cxn()->query($query);
 			if(mydb::cxn()->error != "") throw new Exception("The requisition was not saved!<br />\n".mydb::cxn()->error);
@@ -99,7 +87,6 @@ function commit_requisition() {
 			//else $priority = ",priority = ".mydb::cxn()->real_escape_string($_POST['priority']);
 			else $priority = ""; //Don't change the priority with this UPDATE
 
-			if(!get_magic_quotes_gpc()) {
 			  $query = "UPDATE requisitions "
 					  ."SET vendor_info = \"".mydb::cxn()->real_escape_string($_POST['vendor_info'])."\""
 					  .",description = \"".mydb::cxn()->real_escape_string($_POST['description'])."\""
@@ -109,18 +96,6 @@ function commit_requisition() {
                                           .",added_by = \"".$_POST['added_by']."\""
 					  .$priority
 					  ." WHERE requisitions.id = ".mydb::cxn()->real_escape_string($_POST['id']);
-			}
-			else {
-			  $query = "UPDATE requisitions "
-					  ."SET vendor_info = \"".$_POST['vendor_info']."\""
-					  .",description = \"".$_POST['description']."\""
-					  .",amount = ".$amount
-					  .",date = str_to_date('".$date."','%m/%d/%Y')"
-					  .",card_used = \"".$_POST['card_used']."\""
-                                          .",added_by = \"".$_POST['added_by']."\""
-					  .$priority
-					  ." WHERE requisitions.id = ".$_POST['id'];
-			}
 			$result = mydb::cxn()->query($query);
 			if(mydb::cxn()->error != "") throw new Exception("The requisition was not saved!<br />\n".mydb::cxn()->error);
 			$requisition_id = mydb::cxn()->real_escape_string($_POST['id']);
