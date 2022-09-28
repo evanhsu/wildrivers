@@ -13,6 +13,7 @@ To run this app on your local machine:
         --env DB_DATABASE=$MY_DB_DATABASE \
         --env DB_HOST=db.smirksoftware.com \
         --env DB_PORT=3306 \
+        --env APP_URL="http://wildrivers.localhost" \
         -v "$(pwd)"/admin/requisition_images:/var/www/html/admin/requisition_images \
         -v "$(pwd)"/env-vars.conf:/etc/php8/php-fpm.d/env-vars.conf \
         wildrivers:latest
