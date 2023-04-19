@@ -1,0 +1,14 @@
+version: '3'
+services:
+    wildrivers:
+        build: .
+        ports:
+            # nginx is listening on port 8080 _inside_ the container
+            - '80:8080'
+        env_file: .env
+        environment:
+            # Make sure this domain resolves (put it in your /etc/hosts file)
+            APP_URL: 'http://wildrivers.localhost'
+        volumes:
+            - './:/var/www/html/'
+            - './env-vars.conf:/etc/php8/php-fpm.d/env-vars.conf'
