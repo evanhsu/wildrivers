@@ -1,8 +1,8 @@
-FROM trafex/php-nginx:2.1.0
+FROM trafex/php-nginx:3.0.0
 
 USER root
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY ./php.ini /etc/php8/conf.d/settings.ini
 
 WORKDIR /var/www/html
