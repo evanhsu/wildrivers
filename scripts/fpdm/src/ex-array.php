@@ -4,10 +4,10 @@
   Sample using a PHP array
 ****************************/
 
-require_once('fpdm.php');
+require('fpdm.php');
 
 $fields = array(
-	'name'    => 'Evan',
+	'name'    => 'My name',
 	'address' => 'My address',
 	'city'    => 'My city',
 	'phone'   => 'My phone number'
