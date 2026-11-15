@@ -409,7 +409,7 @@ function view_requisition()
 
         } else {
             $content .= "<td style=\"text-align:left;\">\n"
-                . "	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"5000000\" />\n"
+                . "	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"10000000\" />\n"
                 . "	<input name=\"uploadedfile" . $i . "\" type=\"file\">\n";
         }
 

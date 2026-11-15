@@ -1177,7 +1177,7 @@ function edit_line_form($idx, $php_self) {
 	
 	echo "  <tr><td><form enctype=\"multipart/form-data\" action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
 		."	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"10000000\" />"
-		."	Upload a new file (max filesize: 5MB)<br />"
+		."	Upload a new file (max filesize: 10MB)<br />"
 		."	<input type=\"file\" name=\"uploadedfile\"><br />\n"
 		."	Description:<input type=\"text\" name=\"file_description\" style=\"width:100%;\"></form></td></tr>\n";
 	if(count($attached_files) > 0) {

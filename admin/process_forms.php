@@ -220,7 +220,7 @@ function check_uploaded_file($file_info) {
 
 	if($file_info['size'] > $_POST['MAX_FILE_SIZE']) { //Double-check filesize
 		$status['success'] = 0;
-		$status['desc'] = "The attached file is too large. The maximum filesize is ".$_POST['MAX_FILE_SIZE']."bytes<br>\n";
+		$status['desc'] = "The attached file is too large. The maximum file size is 10 MB.<br>\n";
 	}
 	elseif (!in_array(strtolower($ext),array("jpg","png","pdf"))) {
 		$status['success'] = 0;

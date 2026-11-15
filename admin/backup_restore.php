@@ -133,7 +133,7 @@
         	<td><div style="font-size:0.9em; color:#777777;">(Right-click and choose "Save As...")</div><br />
         		<?php display_download_menu($backup_file_list); ?>
             </td>
-            <td><div style="font-size:0.9em; color:#777777;display:inline;">Upload a File</div><br />
+            <td><div style="font-size:0.9em; color:#777777;display:inline;">Upload a File (max 10 MB)</div><br />
 				<form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" style="margin:0;">
                 <input type="hidden" name="MAX_FILE_SIZE" value="10000000" /><!-- Ten Megabytes...ish -->
             	<input type="file" name="userfile" size="40" /><br />
