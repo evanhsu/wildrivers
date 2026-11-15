@@ -68,13 +68,13 @@ function commit_requisition() {
 			}
 
 				$query = "INSERT INTO requisitions (vendor_info,description,amount,date,card_used".$pri_field.",added_by) "
-				  ."VALUES (\"".mydb::cxn()->real_escape_string($_POST['vendor_info'])."\",\""
-				  .mydb::cxn()->real_escape_string($_POST['description'])."\","
+				  ."VALUES ('".mydb::cxn()->real_escape_string($_POST['vendor_info'])."','"
+				  .mydb::cxn()->real_escape_string($_POST['description'])."',"
 				  .$amount
 				  .",str_to_date('".$date."','%m/%d/%Y')"
-				  .",\"".mydb::cxn()->real_escape_string($_POST['card_used'])."\""
+				  .",'".mydb::cxn()->real_escape_string($_POST['card_used'])."'"
 				  .$pri_value
-                                  .",\"".$_POST['added_by']."\")";
+                                  .",'".mydb::cxn()->real_escape_string($_POST['added_by'])."')";
 			
 			$result = mydb::cxn()->query($query);
 			if(mydb::cxn()->error != "") throw new Exception("The requisition was not saved!<br />\n".mydb::cxn()->error);
@@ -88,12 +88,12 @@ function commit_requisition() {
 			else $priority = ""; //Don't change the priority with this UPDATE
 
 			  $query = "UPDATE requisitions "
-					  ."SET vendor_info = \"".mydb::cxn()->real_escape_string($_POST['vendor_info'])."\""
-					  .",description = \"".mydb::cxn()->real_escape_string($_POST['description'])."\""
+					  ."SET vendor_info = '".mydb::cxn()->real_escape_string($_POST['vendor_info'])."'"
+					  .",description = '".mydb::cxn()->real_escape_string($_POST['description'])."'"
 					  .",amount = ".$amount
 					  .",date = str_to_date('".$date."','%m/%d/%Y')"
-					  .",card_used = \"".mydb::cxn()->real_escape_string($_POST['card_used'])."\""
-                                          .",added_by = \"".$_POST['added_by']."\""
+					  .",card_used = '".mydb::cxn()->real_escape_string($_POST['card_used'])."'"
+                                          .",added_by = '".mydb::cxn()->real_escape_string($_POST['added_by'])."'"
 					  .$priority
 					  ." WHERE requisitions.id = ".mydb::cxn()->real_escape_string($_POST['id']);
 			$result = mydb::cxn()->query($query);
@@ -111,14 +111,14 @@ function commit_requisition() {
 		for($i=1;$i<=$_SESSION['split_qty'];$i++) {
 			if($_POST['amount_'.$i] != '') {
 				$query = "INSERT INTO requisitions_split (requisition_id, s_number, charge_code, override, amount, received, reconciled, comments) "
-					."VALUES (".$requisition_id.",\""
-					.mydb::cxn()->real_escape_string(strtoupper($_POST['s_number_'.$i]))."\",\""
-					.mydb::cxn()->real_escape_string(strtoupper($_POST['charge_code_'.$i]))."\",\""
-					.mydb::cxn()->real_escape_string($_POST['override_'.$i])."\","
-					.number_format(mydb::cxn()->real_escape_string($_POST['amount_'.$i]),2,'.','').",\""
-					.mydb::cxn()->real_escape_string($_POST['split_received_'.$i])."\",\""
-					.mydb::cxn()->real_escape_string($_POST['split_reconciled_'.$i])."\",\""
-					.mydb::cxn()->real_escape_string($_POST['split_comments_'.$i])."\")";
+					."VALUES (".$requisition_id.",'"
+					.mydb::cxn()->real_escape_string(strtoupper($_POST['s_number_'.$i]))."','"
+					.mydb::cxn()->real_escape_string(strtoupper($_POST['charge_code_'.$i]))."','"
+					.mydb::cxn()->real_escape_string($_POST['override_'.$i])."',"
+					.number_format(mydb::cxn()->real_escape_string($_POST['amount_'.$i]),2,'.','').",'".
+					mydb::cxn()->real_escape_string($_POST['split_received_'.$i])."','"
+					.mydb::cxn()->real_escape_string($_POST['split_reconciled_'.$i])."','"
+					.mydb::cxn()->real_escape_string($_POST['split_comments_'.$i])."')";
 					
 					//echo $query;
 		  
@@ -147,7 +147,7 @@ function commit_requisition() {
 				  }
 				  else {
 					  // File successfully uploaded, now update entry in the database
-					  $query = "UPDATE requisitions SET attachment".$i." = \"".$target_path."\" WHERE id = ".$requisition_id;
+					  $query = "UPDATE requisitions SET attachment".$i." = '".mydb::cxn()->real_escape_string($target_path)."' WHERE id = ".$requisition_id;
 					  $result = mydb::cxn()->query($query);
 					  if(mydb::cxn()->error != "") throw new Exception("File attachment #".$i." could not be saved, but the requisition information was saved successfully.<br />\n".mydb::cxn()->error);
 				  }

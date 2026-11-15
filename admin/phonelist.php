@@ -52,7 +52,7 @@
 							roster.year
 				FROM		crewmembers INNER JOIN roster
 				ON			crewmembers.id = roster.id
-				WHERE 		roster.year like \"".$year."\"
+				WHERE 		roster.year like '".mydb::cxn()->real_escape_string($year)."'
 				ORDER BY	crewmembers.lastname, crewmembers.firstname";
 
 		$result = mydb::cxn()->query($query);
@@ -145,14 +145,14 @@
 //-----------------------------------------------------------------------------------------------------------------
 
 	function update_info() {
-		$query = "update crewmembers set street1 = \"".mydb::cxn()->real_escape_string($_POST['street1'])."\", "
-				."street2 = \"".mydb::cxn()->real_escape_string($_POST['street2'])."\", "
-				."city = \"".mydb::cxn()->real_escape_string($_POST['city'])."\", "
-				."state = \"".mydb::cxn()->real_escape_string($_POST['state'])."\", "
-				."zip = \"".mydb::cxn()->real_escape_string($_POST['zip'])."\", "
-				."phone = \"".mydb::cxn()->real_escape_string($_POST['phone'])."\", "
-				."email = \"".mydb::cxn()->real_escape_string($_POST['email'])."\""
-				." where id like \"".$_POST['id']."\"";
+		$query = "update crewmembers set street1 = '".mydb::cxn()->real_escape_string($_POST['street1'])."', "
+				."street2 = '".mydb::cxn()->real_escape_string($_POST['street2'])."', "
+				."city = '".mydb::cxn()->real_escape_string($_POST['city'])."', "
+				."state = '".mydb::cxn()->real_escape_string($_POST['state'])."', "
+				."zip = '".mydb::cxn()->real_escape_string($_POST['zip'])."', "
+				."phone = '".mydb::cxn()->real_escape_string($_POST['phone'])."', "
+				."email = '".mydb::cxn()->real_escape_string($_POST['email'])."'"
+				." where id like '".mydb::cxn()->real_escape_string($_POST['id'])."'";
 				
 		$result = mydb::cxn()->query($query);
 		if(mydb::cxn()->error != '') {

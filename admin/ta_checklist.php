@@ -29,7 +29,7 @@
 	  //0 : This person's paycheck has not been submitted.
 	  //1 : This person' paycheck has already been submitted.
 	  if(!$year) $year_query = "(SELECT MAX(year) AS year FROM paychecks)";
-	  else $year_query = "\"".trim($year)."\"";
+	  else $year_query = "'".mydb::cxn()->real_escape_string(trim($year))."'";
 	  
 	  if(!$payperiod) {
 		  $query = "	SELECT MAX( payperiod ) AS payperiod, year

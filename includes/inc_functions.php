@@ -663,7 +663,7 @@ function add_line() {
 		else $g_where = "";
 		
 		$new_cal_id = g_cal_createEvent (g_cal_authenticate(), $g_title, $g_description, $g_where, $g_start_date,'0', $g_end_date,'0','-08');
-		$result = mydb::cxn()->query("UPDATE incidents SET g_cal_eventUrl = \"".$new_cal_id."\" WHERE idx = ".$incident_idx);
+		$result = mydb::cxn()->query("UPDATE incidents SET g_cal_eventUrl = '".mydb::cxn()->real_escape_string($new_cal_id)."' WHERE idx = ".$incident_idx);
 */
 
 		$_SESSION['form_field1'] = '';
@@ -1235,7 +1235,7 @@ function edit_line($idx, $php_self) {
 	  $targets = format_filename(basename( $_FILES['uploadedfile']['name']));
 	  $target_path = $targets['base'] . $targets['filename'];
 	  if(trim($_POST['file_description']) == '') $file_description = basename($_FILES['uploadedfile']['name']);
-	  else $file_description = mydb::cxn()->real_escape_string($_POST['file_description']);
+	  else $file_description = $_POST['file_description'];
 	  
 	  $status = check_uploaded_file($_FILES['uploadedfile']['tmp_name']); // $status['success'] (0,1) - $status['desc'] (text)
   
@@ -1248,8 +1248,8 @@ function edit_line($idx, $php_self) {
 		  else {
 			  // File successfully uploaded, now add an entry in the database
 			  $result = mydb::cxn()->query("insert into incident_files(file_path,file_description, incident_id) "
-										  ."values(\"assets/".$targets['filename']."\",\""
-										  .$file_description."\","
+										  ."values('".mydb::cxn()->real_escape_string("assets/".$targets['filename'])."','"
+										  .mydb::cxn()->real_escape_string($file_description)."',"
 										  .$idx.")")
 				  or die("Saving file failed: " . mydb::cxn()->error);
 		  }
@@ -1356,7 +1356,7 @@ function edit_line($idx, $php_self) {
 		else $g_where = "";
 		
 		$new_cal_id = g_cal_createEvent (g_cal_authenticate(), $g_title, $g_description, $g_where, $g_start_date,'0', $g_end_date,'0','-08');
-		$result = mydb::cxn()->query("UPDATE incidents SET g_cal_eventUrl = \"".$new_cal_id."\" WHERE idx = ".$idx);
+		$result = mydb::cxn()->query("UPDATE incidents SET g_cal_eventUrl = '".mydb::cxn()->real_escape_string($new_cal_id)."' WHERE idx = ".$idx);
 */	
 		$_SESSION['form_field1'] = '';
 		$_SESSION['form_field2'] = '';

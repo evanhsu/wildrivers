@@ -163,8 +163,13 @@
 			}
 			if($status['success'] != 0) {
 				// Photo successfully uploaded, now add an entry in the database
+				$bio = mydb::cxn()->real_escape_string(nl2br(htmlentities($_POST['bio'], ENT_QUOTES)));
 				$query = "insert into crewmembers(firstname,lastname,headshot_filename,bio)
-						  values(\"".$_POST['firstname']."\",\"".$_POST['lastname']."\",\"images/roster_headshots/".$targets['filename']."\",\"".nl2br(htmlentities($_POST['bio'],ENT_QUOTES))."\")";
+						  values('"
+						  .mydb::cxn()->real_escape_string($_POST['firstname'])."','"
+						  .mydb::cxn()->real_escape_string($_POST['lastname'])."','"
+						  .mydb::cxn()->real_escape_string("images/roster_headshots/".$targets['filename'])."','"
+						  .$bio."')";
 				$result = mydb::cxn()->query($query);
 				if(mydb::cxn()->error != '') {
 					die("Update crewmembers table failed: " . mydb::cxn()->error . "<br>\n".$query);
@@ -220,8 +225,13 @@
 				}
 				else {
 					// Photo successfully uploaded, now update entry in the database
-					$query = "update crewmembers set firstname = \"".$_POST['firstname']."\", lastname = \"".$_POST['lastname']."\", bio = \"".nl2br(htmlentities($_POST['bio'],ENT_QUOTES))
-										. "\", headshot_filename = \"images/roster_headshots/".$targets['filename']."\" where id like \"".$_POST['id']."\"";
+					$bio = mydb::cxn()->real_escape_string(nl2br(htmlentities($_POST['bio'], ENT_QUOTES)));
+					$query = "update crewmembers set firstname = '"
+						.mydb::cxn()->real_escape_string($_POST['firstname'])."', lastname = '"
+						.mydb::cxn()->real_escape_string($_POST['lastname'])."', bio = '"
+						.$bio."', headshot_filename = '"
+						.mydb::cxn()->real_escape_string("images/roster_headshots/".$targets['filename'])."' where id like '"
+						.mydb::cxn()->real_escape_string($_POST['id'])."'";
 					$result = mydb::cxn()->query($query);
 					if(mydb::cxn()->error != '') {
 						die("Modify crewmember info failed: " . mydb::cxn()->error . "<br>\n".$query);
@@ -232,8 +242,12 @@
 		} //END if($_FILES['uploadedfile']['name'] != "")
 		else {
 			// A new image file was NOT specified = just update everything else
-			$query = "update crewmembers set firstname = \"".$_POST['firstname']."\", lastname = \"".$_POST['lastname']."\", bio = \"".nl2br(htmlentities($_POST['bio'],ENT_QUOTES))
-					."\" where id like \"".$_POST['id']."\"";
+			$bio = mydb::cxn()->real_escape_string(nl2br(htmlentities($_POST['bio'], ENT_QUOTES)));
+			$query = "update crewmembers set firstname = '"
+				.mydb::cxn()->real_escape_string($_POST['firstname'])."', lastname = '"
+				.mydb::cxn()->real_escape_string($_POST['lastname'])."', bio = '"
+				.$bio."' where id like '"
+				.mydb::cxn()->real_escape_string($_POST['id'])."'";
 			$result = mydb::cxn()->query($query);
 			if(mydb::cxn()->error != '') {
 				die("Modify crewmember info failed: " . mydb::cxn()->error . "<br>\n".$query);
@@ -355,7 +369,7 @@
 												CONCAT(crewmembers.lastname,', ',crewmembers.firstname) as name
 										FROM	crewmembers LEFT OUTER JOIN roster
 										ON		crewmembers.id = roster.id
-										WHERE	crewmembers.id not in (select id from roster where year like \"".$_POST['year']."\")
+										WHERE	crewmembers.id not in (select id from roster where year like '".mydb::cxn()->real_escape_string($_POST['year'])."')
 										ORDER BY lastname");
 				if(mydb::cxn()->error != '') {
 					die("Retrieving crewmembers for dropdown menu failed: " . mydb::cxn()->error . "<br>\n".$query);
@@ -370,8 +384,8 @@
 				echo "<h1>Modify Existing Crewmembers</h1><br><br>\n";
 				if($_POST['remove'] == 1) {
 					$result = mydb::cxn()->query(" DELETE from roster
-											WHERE id like \"".$_POST['id']."\"
-											and year like \"".$_POST['year']."\"");
+											WHERE id like '".mydb::cxn()->real_escape_string($_POST['id'])."'
+											and year like '".mydb::cxn()->real_escape_string($_POST['year'])."'");
 					
 					if(mydb::cxn()->error != '') {
 						$status = array('success'=>0,'desc'=>"Removing crewmember failed: ".mydb::cxn()->error);
@@ -388,7 +402,7 @@
 												crewmembers.bio
 										FROM	crewmembers INNER JOIN roster
 										ON		crewmembers.id = roster.id
-										WHERE	roster.year like \"".$_POST['year']."\"
+										WHERE	roster.year like '".mydb::cxn()->real_escape_string($_POST['year'])."'
 										ORDER BY	crewmembers.id");
 				if(mydb::cxn()->error != '') {
 					die("Retrieving roster failed: " . mydb::cxn()->error . "<br>\n".$query);
@@ -488,7 +502,7 @@
 												roster.year
 										FROM	crewmembers INNER JOIN roster
 										ON		crewmembers.id = roster.id
-										WHERE	roster.year not like \"".$_POST['year']."\"
+										WHERE	roster.year not like '".mydb::cxn()->real_escape_string($_POST['year'])."'
 										ORDER BY lastname");
 				if(mydb::cxn()->error != '') {
 					die("Retrieving crewmembers for dropdown menu failed: " . mydb::cxn()->error . "<br>\n".$query);
@@ -523,7 +537,7 @@
 			} //end if(!isset($_GET['year']))
 			else {
 				//Year has been specified, DELETE all entries in the ROSTER table corresponding to that year
-				$query = "DELETE from roster WHERE year like \"".$_POST['year']."\"";
+				$query = "DELETE from roster WHERE year like '".mydb::cxn()->real_escape_string($_POST['year'])."'";
 				$result = mydb::cxn()->query($query);
 				if(mydb::cxn()->error != '') {
 					die("Deleting the ".$_POST['year']." roster failed: " . mydb::cxn()->error . "<br>\n".$query);
