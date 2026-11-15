@@ -2,7 +2,9 @@ FROM trafex/php-nginx:3.0.0
 
 USER root
 
-# COPY ./nginx.conf /etc/nginx/nginx.conf
+# The base image sets no client_max_body_size (nginx default 1m). Override the
+# bundled server block so multipart uploads (requisitions, attachments) can reach PHP.
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./php.ini /etc/php8/conf.d/settings.ini
 COPY ./env-vars.conf /etc/php8/php-fpm.d/env-vars.conf
 
