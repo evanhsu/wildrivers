@@ -1,0 +1,186 @@
+# Builds wildrivers-app on a GitHub-hosted runner and streams it to the droplet
+# with docker save / docker load. There is no container registry.
+#
+# Triggers:
+# - A push to main deploys the dev container (wildrivers-dev, tag WILDRIVERS_DEV_TAG).
+# - A published release deploys the prod container (wildrivers, tag WILDRIVERS_TAG).
+# - workflow_dispatch deploys whichever environment you pick. Leave the sha
+#   input empty to build the tip of the branch you selected. Fill it only when
+#   you want an older commit rebuilt.
+#
+# One image tag (`wildrivers-app:<sha>`) works for both environments. Runtime
+# config (database, APP_URL, and so on) comes from the service env file on the
+# droplet, not from the image.
+#
+# Env files live in this repo encrypted with sops as dotenv. The age private
+# key is the SOPS_AGE_KEY secret. Filenames (.env.production.sops,
+# .env.dev.sops) do not end in `.env`, so encrypt and decrypt must pass
+# `--input-type dotenv --output-type dotenv`. The workflow decrypts only onto
+# the droplet, where Compose reads /opt/stack/env/<service>.env at start.
+
+name: Deploy
+
+on:
+    push:
+        branches: [main]
+        paths-ignore:
+            - "**.md"
+    release:
+        types: [published]
+    workflow_dispatch:
+        inputs:
+            sha:
+                description: Git sha to build. Leave empty to deploy the tip of the branch you selected.
+                required: false
+                type: string
+            environment:
+                description: Which environment to deploy to (dev/prod)
+                required: true
+                type: choice
+                default: dev
+                options:
+                    - dev
+                    - prod
+
+# Dev and prod can run at the same time. A newer push to main cancels an
+# in-progress dev deploy. A release is never cancelled by a later run.
+concurrency:
+    group: wildrivers-deploy-${{ github.event_name == 'release' && 'prod' || (github.event_name == 'workflow_dispatch' && inputs.environment) || 'dev' }}
+    cancel-in-progress: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.environment == 'dev') }}
+
+permissions:
+    contents: read
+
+jobs:
+    deploy:
+        name: Build image and deploy
+        runs-on: ubuntu-latest
+        env:
+            APP_IMAGE: wildrivers-app
+            TAG_KEY_PROD: WILDRIVERS_TAG
+            TAG_KEY_DEV: WILDRIVERS_DEV_TAG
+            SERVICE_PROD: wildrivers
+            SERVICE_DEV: wildrivers-dev
+        steps:
+            - name: Decide what to build
+              id: plan
+              env:
+                  INPUT_SHA: ${{ inputs.sha }}
+                  INPUT_ENV: ${{ inputs.environment }}
+              run: |
+                  set -euo pipefail
+
+                  # A manual run can name an older commit. Push and release always
+                  # build the commit that triggered the workflow.
+                  sha="${GITHUB_SHA}"
+                  if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ -n "${INPUT_SHA}" ]; then
+                    sha="${INPUT_SHA}"
+                  fi
+                  if ! [[ "$sha" =~ ^[0-9a-fA-F]{7,40}$ ]]; then
+                    echo "The sha must be 7 to 40 hex characters." >&2
+                    exit 1
+                  fi
+
+                  # Push to main is dev. A published release is prod. A manual run
+                  # uses the environment input, and anything else is dev.
+                  environment=dev
+                  if [ "${GITHUB_EVENT_NAME}" = "release" ]; then
+                    environment=prod
+                  elif [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+                    environment="${INPUT_ENV}"
+                  fi
+
+                  case "$environment" in
+                    prod)
+                      tag_key="${TAG_KEY_PROD}"
+                      service="${SERVICE_PROD}"
+                      env_src=".env.production.sops"
+                      ;;
+                    dev)
+                      tag_key="${TAG_KEY_DEV}"
+                      service="${SERVICE_DEV}"
+                      env_src=".env.dev.sops"
+                      ;;
+                    *)
+                      echo "Environment must be dev or prod." >&2
+                      exit 1
+                      ;;
+                  esac
+
+                  # One image tag for both environments. Runtime config comes from
+                  # /opt/stack/env/<service>.env on the droplet.
+                  image_tag="${sha}"
+                  {
+                    echo "tag_key=${tag_key}"
+                    echo "service=${service}"
+                    echo "env_src=${env_src}"
+                    echo "image_tag=${image_tag}"
+                    echo "sha=${sha}"
+                    echo "environment=${environment}"
+                  } >> "$GITHUB_OUTPUT"
+
+                  {
+                    echo "## Deploy plan"
+                    echo ""
+                    echo "| Field | Value |"
+                    echo "| --- | --- |"
+                    echo "| Trigger | \`${GITHUB_EVENT_NAME}\` |"
+                    echo "| Environment | \`${environment}\` |"
+                    echo "| Git sha | \`${sha}\` |"
+                    echo "| Image | \`${APP_IMAGE}:${image_tag}\` |"
+                    echo "| Compose service | \`${service}\` |"
+                    echo "| Tag key on droplet | \`${tag_key}\` |"
+                    echo "| Encrypted env file | \`${env_src}\` |"
+                    echo "| Droplet env path | \`/opt/stack/env/${service}.env\` |"
+                  } >> "$GITHUB_STEP_SUMMARY"
+
+                  echo "Deploy plan: ${environment} ← ${APP_IMAGE}:${image_tag} (${service}, ${tag_key}, ${env_src})"
+
+            - name: Check out the commit
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  ref: ${{ steps.plan.outputs.sha }}
+
+            - name: Build the image
+              run: docker build -t "${APP_IMAGE}:${{ steps.plan.outputs.image_tag }}" .
+
+            - name: Install the deploy key
+              env:
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+              run: |
+                  install -d -m 700 ~/.ssh
+                  printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy
+                  chmod 600 ~/.ssh/deploy
+                  ssh-keyscan -H "${{ vars.DROPLET_HOST }}" >> ~/.ssh/known_hosts
+
+            - name: Install sops
+              run: |
+                  curl -fsSL -o /usr/local/bin/sops \
+                    https://github.com/getsops/sops/releases/download/v3.13.3/sops-v3.13.3.linux.amd64
+                  chmod +x /usr/local/bin/sops
+
+            - name: Install the env file, load the image, and restart the container
+              env:
+                  DROPLET_HOST: deploy@${{ vars.DROPLET_HOST }}
+                  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+              run: |
+                  set -euo pipefail
+                  src="${{ steps.plan.outputs.env_src }}"
+                  if [ ! -f "$src" ]; then
+                    echo "Missing ${src}." >&2
+                    echo "Encrypt that environment's env file with sops and commit it as ${src} before deploying ${{ steps.plan.outputs.environment }}." >&2
+                    echo "Prod reads .env.production.sops (database wildrivers). Dev reads .env.dev.sops (database wildrivers_dev). They cannot share a file, because create-app-users.sh checks that the username and database match the service." >&2
+                    exit 1
+                  fi
+                  # Filenames do not end in .env, so sops needs the dotenv type flags.
+                  sops -d --input-type dotenv --output-type dotenv "$src" > /tmp/app.env
+                  ssh_opts=(-i ~/.ssh/deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes)
+                  ssh "${ssh_opts[@]}" "$DROPLET_HOST" \
+                    "umask 077; cat > /opt/stack/env/${{ steps.plan.outputs.service }}.env" \
+                    < /tmp/app.env
+                  ssh "${ssh_opts[@]}" "$DROPLET_HOST" \
+                    "sudo /opt/stack/scripts/create-app-users.sh"
+                  docker save "${APP_IMAGE}:${{ steps.plan.outputs.image_tag }}" \
+                    | ssh "${ssh_opts[@]}" "$DROPLET_HOST" docker load
+                  ssh "${ssh_opts[@]}" "$DROPLET_HOST" \
+                    "/opt/stack/scripts/set-image-tag.sh '${{ steps.plan.outputs.tag_key }}' '${{ steps.plan.outputs.service }}' '${APP_IMAGE}' '${{ steps.plan.outputs.image_tag }}'"

@@ -4,6 +4,7 @@ USER root
 
 # COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY ./php.ini /etc/php8/conf.d/settings.ini
+COPY ./env-vars.conf /etc/php8/php-fpm.d/env-vars.conf
 
 WORKDIR /var/www/html
 
